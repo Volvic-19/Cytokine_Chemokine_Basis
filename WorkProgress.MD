@@ -16,7 +16,7 @@
    
 2. Select desired datasets to use
    * Filter datasets for common cytokines/chemokines
-   * Remove duplicated datasets (i.e. two or more files sharing the same Uniprot ID)
-   * 
+   * Remove duplicated datasets (i.e. two or more files sharing the same Uniprot ID) 
+   * [ongoing: waiting for reply from authors to decide how to select duplicated datasets]
 
   * Relevant Code: [map_dataset_names.R](https://github.com/Volvic-19/Cytokine_Chemokine_Basis/blob/main/Code/map_dataset_names.R)
