@@ -1,5 +1,4 @@
-SeqId	FileName	Protein (short name)	Protein (full name)	Gene	Remark	"Included in
-analysis"	UniProt	Common_Name	Common_class	Common_Cytokine	Common_Chemokine	Organism	Type	Ensembl.Gene.ID	Entrez.Gene.ID	HGNC.ID	betaage	pvalage	betamale	pvalmale	meanLogvalue	R2PlateId	R2PlatePosition	R2Error	R2Subject
+SeqId	FileName	Protein (short name)	Protein (full name)	Gene	Remark	"Included in analysis"	UniProt	Common_Name	Common_class	Common_Cytokine	Common_Chemokine	Organism	Type	Ensembl.Gene.ID	Entrez.Gene.ID	HGNC.ID	betaage	pvalage	betamale	pvalmale	meanLogvalue	R2PlateId	R2PlatePosition	R2Error	R2Subject
 11071_1	11071_1_IL5_IL_5.txt.gz	IL-5	Interleukin-5	IL5	NA	Yes	P05113	IL-5	Interleukins	TRUE		human	Protein	ENSG00000113525	3567	HGNC:6016	0.0006012	6.6000000000000004E-9	-0.02058316	8.5E-9	5.619018	0.069	0.00188	0.042246165	0.887
 11593_21	11593_21_CXCL9_MIG.txt.gz	MIG	C-X-C motif chemokine 9	CXCL9	NA	Yes	Q07325	CXCL9	CXC Chemokines		TRUE	human	Protein	ENSG00000138755	4283	HGNC:7098	0.000937788	1.01E-39	-0.00248676	0.31	6.064799	0.17	0.0256	0.12752182	0.677
 13748_4	13748_4_CCL8_MCP_2.txt.gz	MCP-2	C-C motif chemokine 8	CCL8	NA	Yes	P80075	CCL8	CC Chemokines		TRUE	human	Protein	ENSG00000108700	6355	HGNC:10635	0.003880013	9.1199999999999997E-193	-0.01098416	1.4500000000000001E-2	5.971982	0.0581	0.0144	0.057498941	0.87
