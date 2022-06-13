@@ -1,0 +1,12 @@
+## data too big for github
+
+*.txt.gz 
+
+## imtermediated output files from hpc
+
+*.err
+*.out
+
+## output from pipeline
+
+**.tsv.gz
