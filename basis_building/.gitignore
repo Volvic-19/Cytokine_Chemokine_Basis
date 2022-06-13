@@ -1,6 +1,7 @@
 ## data too big for github
 
 *.txt.gz 
+*.gz
 
 ## imtermediated output files from hpc
 
