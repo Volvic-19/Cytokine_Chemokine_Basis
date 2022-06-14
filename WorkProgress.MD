@@ -25,5 +25,5 @@
 # Create Manifest: list of SNPs to use in our cytokine/chemokine basis
 
 1. Intersect of **UKBB Asthma**, **PanUKBB Asthma**, **FinnGen Asthma**
-  * Download 3 datasets, liftover two UKBB files from hg19 to hg38 build.[ongoing]
-  * 
+    * Download 3 datasets, liftover two UKBB files from hg19 to hg38 build.[ongoing]
+    * 
