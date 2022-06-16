@@ -2,6 +2,7 @@
 
 *.txt.gz 
 *.gz
+IL5_consensus_manifest_8M.tsv
 
 ## imtermediated output files from hpc
 
