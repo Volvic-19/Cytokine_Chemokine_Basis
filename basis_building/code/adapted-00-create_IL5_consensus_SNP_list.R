@@ -95,10 +95,23 @@ map <- map[!pid %in% dups]
 
 output <- merge(manifest, map, by = "pid", all.x = TRUE)
 output <- output[order(CHR38, BP38)]
+output <- output[nchar(ALT)==1 & nchar(REF)==1] 
+
+# Remove "A/T" "T/A" "C/G" "G/C"
+output[, REF_ALT:= paste(REF,ALT,sep='/')] 
+rmREF_ALT <- c("A/T","T/A","C/G","G/C","A/A","T/T","C/C","G/G")
+output <- output[!REF_ALT %in% rmREF_ALT] # 8023580 SNPs
+
+# Remove MHC and associated LD blocks
+mhc.blocks <- output[  CHR38 == 6 & BP38 > 20000000 & BP38 < 40000000, unique(ld.block) ]
+output  <- output[ !ld.block %in% mhc.blocks ]
+
+# 7938504 SNPs
+
 
 
 # Save the new consensus manifest
-fwrite(manifest, "./IL5_consensus_manifest_8M.tsv", sep="\t") #8395537 SNPs
+fwrite(output, "./IL5_consensus_manifest_8M.tsv", sep="\t") 
 
 
 

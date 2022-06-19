@@ -3,6 +3,8 @@
 *.txt.gz 
 *.gz
 IL5_consensus_manifest_8M.tsv
+assocvariants.annotated.txt.gz
+
 
 ## imtermediated output files from hpc
 
