@@ -58,6 +58,11 @@ ggsave("../plots/e5_PC1_PC2.png", biplot)
 saveRDS(basis, "../PCA/cytokine_basis.RDS")
 saveRDS(basis.mat, "../PCA/cytokine_basis_matrix.RDS")
 
+# Read files
+basis <- readRDS("../PCA/cytokine_basis.RDS")
+basis.mat <- readRDS("../PCA/cytokine_basis_matrix.RDS")
+
+
 
 # Compute a sparse basis (we have  673,318_ SNPs at the moment, but can further filter to get _ sparse SNPs that recreate the projected matrix )
 
