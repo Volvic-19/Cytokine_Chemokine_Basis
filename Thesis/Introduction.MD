@@ -58,11 +58,11 @@
 
 **2. Strength of it: Why it helps us to address the problem stated in part 2.**
 * Shrinkage weights are naturally adjusted for LD
-* By keeping only one causal SNP for each region, avoid double counting, decrease computational complexity
+* By keeping only one causal SNP for each region, avoid double counting, decrease SNP size by applying threshold on shrinkage.
 * Mitigate overfitting: the effect from technical noise as well as the sampling variation are weakened in the final metric; capture biological signal, which is the true genetic architecture that we are interested in
 
 **3. Briefly state the aim of this project:**
-* Creating a low-dimension cytokine/chemokine basis that summarises the shared genetic risks across a set of IMD.
+* Creating a low-dimension cytokine/chemokine basis that summarises the shared genetic regulation pattern.
 * Use that basis to project independent datasets, get insights in the underlying genetic factors contributing to traits (by interpreting principle components)
 
 
