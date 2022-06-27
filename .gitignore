@@ -5,6 +5,7 @@
 IL5_consensus_manifest_8M.tsv
 assocvariants.annotated.txt.gz
 IL5_consensus_manifest_6M.tsv
+IL5_consensus_manifest_6M_e5.tsv
 *.tsv.gz
 *.RDS
 

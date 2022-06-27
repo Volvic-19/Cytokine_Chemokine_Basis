@@ -105,6 +105,27 @@ rec.plot <- reconstruction.error.plot(basis = basis, basis.mat = basis.mat)
 
 rec.plot.log <- reconstruction.error.plot(basis = basis, basis.mat = basis.mat, scale = "log")
 
+# Plot scree plot (eigenvalue)
+# compute total variance
+
+plot_scree <- function(basis){
+
+	variance = basis$sdev^2 / sum(basis$sdev^2)
+
+	plot <- ggplot(data=data.frame(x=1:length(basis$sdev),y=variance), aes(x=x,y=y))+
+	geom_line()+
+	xlab("Principle Component")+
+	ylab("Variance Explained")+
+	ggtitle("Scree Plot")
+
+	return(plot)
+}
+
+scree.plot <- plot_scree(basis)
+ggsave("../Plots/scree_plot_e5.png", scree.plot)
+
+
+
 # Is our basis naturally sparse?
 # Plot rotation vectors by PC to see what their distribution looks like. We expect most elements in the rotation vectors to be zero, or close to zero, meaning that only a few SNPs will have an effect in the rotation of basis.mat during PCA, and thus, we can make our basis sparse by shedding off most SNPs.
 

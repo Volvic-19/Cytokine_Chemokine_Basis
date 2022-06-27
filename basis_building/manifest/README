@@ -1,0 +1,7 @@
+IL5_consensus_manifest_8M.tsv : Initial manifest. Contains SNPs that are overlapped in Ferkingstad IL5, UKBB (Neale + PanUKBB), and FinnGen. No duplicated SNPs.
+
+IL5_consensus_manifest_6M.tsv : derived from IL5_consensus_manifest_8M, contains all SNPs that are present in all Ferkingstad (104) datasets.
+
+IL5_consensus_manifest_6M_e5.tsv : derived from IL5_consensus_manifest_6M.tsv, contains only SNPs that are overlapped with shrinkage.e5.DT.tsv.gz, which is SNPs whose shrinkage value is > 1e-5
+
+
