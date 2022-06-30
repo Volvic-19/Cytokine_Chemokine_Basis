@@ -122,7 +122,7 @@ plot_scree <- function(basis){
 }
 
 scree.plot <- plot_scree(basis)
-ggsave("../Plots/scree_plot_e5.png", scree.plot)
+ggsave("../plots/scree_plot_e5.png", scree.plot)
 
 
 

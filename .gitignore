@@ -1,5 +1,7 @@
 ## data too big for github
 
+*.Rdata
+*-ft.tsv
 *.txt.gz 
 *.gz
 IL5_consensus_manifest_8M.tsv

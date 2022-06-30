@@ -1,0 +1,5 @@
+data : contains the reduced test datasests before projection. List of datasets are provided in /home/qz284/rds/rds-basis-YRWZsjDGyaU/Projects/Cytokine_Chemokine_Basis/basis_projection/code/traits_to_project_early_test.txt
+
+code/adapted-08.2-reduction.R : Almost the same as adapted-08-reduction.R, except this scirpt tolerates no ALT_FREQ input. 249-261 datasets are ran through this script.
+
+
