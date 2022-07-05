@@ -1,7 +1,7 @@
 # This script and the following adapted-10 is to apply projection of Ohola.olli datasets (reduced by adapted-08-reduction.R) onto
 # our Ferkingstad basis (complete, not sparse yet) for a quick visualisation test. Signficance is not computed. 
 
-# Before running projection, we need to prepare Rdata to avoid repeated computing of : basis, 
+# Before running projection, we need to prepare Rdata to avoid repeated computing of basis, 
 
 
 ##############################################
