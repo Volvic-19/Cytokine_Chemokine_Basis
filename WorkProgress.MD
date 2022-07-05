@@ -1,4 +1,6 @@
-# Decide the GWAS summary statistics datasets to use
+# 1. Pre-work
+
+## Decide the GWAS summary statistics datasets to use
 
 1. Compare 4 papers (Ferkingstad, Ahola-Olli, Lasse Folkersen, Sinnott-Armstrong) based on their coverage of common cytokine/chemokine.
 
@@ -8,7 +10,7 @@
 
   * Relevant Code: [Cytokine_chemokine_coverage.R](https://github.com/Volvic-19/Cytokine_Chemokine_Basis/blob/main/Pre-work/Cytokine_chemokine_coverage.R)
 
-# Download desired cytokine/chemokine datasets from Ferkingstad
+## Download desired cytokine/chemokine datasets from Ferkingstad
 
 1. Map downloaded files with protein names via unique SeqId
    * Datasets of 4,907 traits were downloaded from [decode](https://www.decode.com/summarydata/)
@@ -17,13 +19,18 @@
 2. Select desired datasets to use
    * Filter datasets for common cytokines/chemokines
    * Remove duplicated datasets (i.e. two or more files sharing the same Uniprot ID): Manhattan plots were made to compare duplicated datasets. We intended to keep only one for each protein trait, but as quality of GWAS stats are close and there is no clear ground to eliminate duplicates, we keep all of them (in total 104 traits) in our current basis.
-   * Copy desired datasets (.txt.gz files) and save them under /rds/project/rds-YRWZsjDGyaU/Projects/Cytokine_Chemokine_Basis/basis_building
+   * Copy desired datasets (.txt.gz files) and save them under rds/rds-cew54-basis/Projects/Cytokine_Chemokine_Basis/basis_building/raw_fk_data
   
-  * Relevant Code: [map_dataset_names.R](https://github.com/Volvic-19/Cytokine_Chemokine_Basis/blob/main/Pre-work/map_dataset_names.R)
+  * Relevant Code: [map_dataset_names.R](https://github.com/Volvic-19/Cytokine_Chemokine_Basis/blob/main/Pre-work/map_dataset_names/map_dataset_names.R)
  
  
-# Create Manifest: list of SNPs to use in our cytokine/chemokine basis
+ # 2. Basis-building
+
+## Create Manifest: list of SNPs to use in our cytokine/chemokine basis
 
 1. Intersect of **UKBB Asthma**, **PanUKBB Asthma**, **FinnGen Asthma**
     * Download 3 datasets, liftover two UKBB files from hg19 to hg38 build.[ongoing]
     * 
+
+
+
