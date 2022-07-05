@@ -1,6 +1,6 @@
-## Unfinished
 ## This script is to map file names of downloaded datasets with protein name/ Uniprot ID / common protein name
 ## Names of the downloaded file follows the convension : "SeqId_GeneName_ProteinName.txt.gz" where SeqId is unique for each trait
+## In this script and following scripts, "Common cytokine" refers to cytokine/chemokine classified in the cytokine review book.
 
 library(dplyr)
 library(reshape2)
@@ -42,8 +42,9 @@ output.basis <- subset(output.all, !is.na(output.all$FileName)) %>%
 # save files
 
 write.xlsx(output.all, "map_dataset_names/Ferkingstad_mapped_all.xlsx")
+write.xlsx(output.basis, "map_dataset_names/Ferkingstad_mapped_basis.xlsx") 
 
-write.xlsx(output.basis, "map_dataset_names/Ferkingstad_mapped_basis.xlsx")
+
 
 #############################################################################
 ############# Solve duplicate problem in datasets#############################
@@ -53,8 +54,7 @@ basis <- read_xlsx ("map_dataset_names/Ferkingstad_mapped_basis.xlsx")[, -1]
 all <- read_xlsx ("map_dataset_names/Ferkingstad_mapped_all.xlsx")[, -1]
 
 
-# mannually remove "9278_9_EPYC_Epiphycan.txt.gz" as it was mislabeled as "SDF-1" with UniprotID "P48061"
-
+# mannually remove "9278_9_EPYC_Epiphycan.txt.gz" as it was mislabeled as "SDF-1" with UniprotID "P48061" by the original author.
 basis <- subset(basis, !basis$SeqId == "9278_9")
 
 
@@ -63,14 +63,12 @@ basis <- subset(basis, !basis$SeqId == "9278_9")
 ## keep "Platelet basic protein (PBP)" as the only protein of "P02775". As PBP can be cleaved into: 
 ## Beta-thromboglobulin (BTG), Neutrophil-activating peptide 2 (NAP -2), Connective tissue-activating peptide III (CTAP-3)
 
-index.to.remove <- setdiff(which(basis$UniProt == "P02775"), which(basis$`Protein (short name)` == "PBP"))
-
-basis <- basis[-index.to.remove, ]
+#index.to.remove <- setdiff(which(basis$UniProt == "P02775"), which(basis$`Protein (short name)` == "PBP"))
+#basis <- basis[-index.to.remove, ]
 
 ## 
-dup.uniprot <- basis$UniProt[duplicated(basis$UniProt)]
-
-dup.basis <- subset(basis, basis$UniProt %in% dup.uniprot)
+#dup.uniprot <- basis$UniProt[duplicated(basis$UniProt)]
+#dup.basis <- subset(basis, basis$UniProt %in% dup.uniprot)
 
 #dup.all <- all$UniProt[duplicated(all$UniProt)]
 #dup.all <- subset(all, all$UniProt %in% dup.all)

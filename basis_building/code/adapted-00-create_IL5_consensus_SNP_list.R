@@ -1,4 +1,5 @@
-# This script will use the processed Chen, UKBB (Neale + PanUKBB), and FinnGen and create an intersection SNP list 
+
+# This script uses the processed Chen, UKBB (Neale + PanUKBB),FinnGen and IL5 from Ferkingstad to create an intersection SNP list 
 # Compared to the old version script, note that CHR19 and BP19 were kept for further mapping
 
 library(data.table)
@@ -10,7 +11,6 @@ library(GenomicRanges)
 setwd("~/rds/rds-cew54-basis/Projects/Cytokine_Chemokine_Basis/basis_building/")
 
 # Load files
-
 
 fk  <- fread("data/11071_1_IL5_IL_5.txt.gz") # Example Ferkingstad file (IL5)
 pu  <- fread("Asthma_PanUKBB_processed-hg38.tsv.gz") # PanUKBB 
@@ -86,7 +86,7 @@ blranges <- GRanges(seqnames=bl$chr, ranges=IRanges(start=bl$start, end=bl$stop)
 
 snpranges <- GRanges(seqnames=paste("chr",manifest$CHR38, sep=""), ranges=IRanges(start=manifest$BP38, end=manifest$BP38), strand="*")
 
-manifest[, ld.block:=findOverlaps(snpranges, blranges, select='last')] # Assing blocks. This will respect the [start, stop) block nomenclature from lddetect.
+manifest[, ld.block:=findOverlaps(snpranges, blranges, select='last')] # Assign blocks. This will respect the [start, stop) block nomenclature from lddetect.
 
 # Add 'CHR19' 'BP19' by mapping to pu
 map <- pu[,c('pid','CHR19','BP19')] 

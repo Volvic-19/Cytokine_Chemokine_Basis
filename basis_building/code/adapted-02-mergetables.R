@@ -1,6 +1,5 @@
-# Creating a common-SNP Ferkingstad dataset
+# This script is the intermediate step to merge all "manifested" Ferkingstad datasets into one table. Otherwise fread() fails to load 104 files in slurm job.
 
-# We're now selecting 104 immune-related Ferkingstad traits to create the basis.
 # Once we have filtered and aligned Ferkingstad datasets, we'll create a single Ferkingstad file and remove all SNPs not common to all 104 datasets.
 # MHC has been removed on the previous step 
 

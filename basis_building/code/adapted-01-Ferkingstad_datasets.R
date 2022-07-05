@@ -1,9 +1,8 @@
 # Preparing manifest-filtered (8M) Ferkingstad datasets prior to basis creation.
 
-# We'll now import the 104-1 Ferkingstad datasets of cytokine and chemokine.
-# We'll filter them by the manifest, keep relevant columns, check alignment and that all SNPs are common among all files and put them together for the next step.
+# We'll now import the 104-1(as IL5 was already used in initial manifest) Ferkingstad datasets of cytokine and chemokine.
+# We'll filter them by the initial manifest, keep relevant columns, check alignment and that all SNPs are common among all files and put them together for the next step.
 
-# 2022-04-28
 
 # Load libraries
 library(data.table)
@@ -11,6 +10,7 @@ setDTthreads(18)
 
 
 ### fk.annotate function to prepare raw Ferkingstad datasets for g.align
+### According to Ferkingstad paper, not all MAF in raw data are Effect allele frequency. Therefore we need to annotate those SNPs, change to correct ALT_FREQ
 ### fk.annotate add ALT_FREQ, set column names, create pid.
 
 fk.annotate <- function(fk,annotation){
@@ -18,7 +18,6 @@ fk.annotate <- function(fk,annotation){
 	fk <- fk[Chrom!="chrX"] #
 	
 	## add annotated ALT_FREQ by "name"
-	#fk[, ALT_FREQ:=ImpMAF]
 	fk.m <- merge(fk, annotation[,.(Name, effectAllele,effectAlleleFreq)], by="Name", all.x=TRUE, suffixes=c(".f",".a"))
 
 	## sanity check: if effect allele from annotation file is all the same as raw Ferkingstad dataset
@@ -40,7 +39,10 @@ fk.annotate <- function(fk,annotation){
 	fk.m[ , pid:=paste(CHR38, Pos, sep=":")]
 	fk.m[ , BP38:=as.integer(Pos)]
 	fk.m[ , CHR38:=as.integer(CHR38)]
-	fk.m[ , REF_ALT:=paste(effectAllele, otherAllele, sep = "/")]
+	fk.m[ , REF_ALT:=paste(effectAllele, otherAllele, sep = "/")] 
+	# Here is a mistake. it should be paste(otherAllele,effectAllele,sep = "/"). But this column was never used
+	# in later shrinkage computation, PCA or projection, as REF and ALT columns are correct and taken as input in alignment functions
+
 
 	fk.m[ , c("Chrom","Pos","minus_log10_pval"):=NULL]
 
@@ -52,13 +54,13 @@ fk.annotate <- function(fk,annotation){
 	## reset column names for g.align
 
 	setnames(fk.m, old = c("otherAllele","effectAllele","effectAlleleFreq", "Beta","Pval"), 
-		new = c("REF","ALT","ALT_FREQ","BETA","P"))
+		new = c("REF","ALT","ALT_FREQ","BETA","P")) 
 
 	setcolorder(fk.m, neworder = c("pid","CHR38","BP38","REF","ALT","REF_ALT","Name","rsids","BETA",
 		"P","SE","N","ImpMAF","ALT_FREQ"))
 
 	## Remove "A/A", "T/T","C/C","G/G"
-	fk.m <- fk.m[!REF_ALT %in% c("A/A","T/T","C/C","G/G")]
+	fk.m <- fk.m[!REF_ALT %in% c("A/A","T/T","C/C","G/G")] #mistaken REF_ALT should not cause a difference here
 
 	fk.m[order(CHR38, BP38)]
 }
@@ -112,7 +114,7 @@ g.align <- function(ds, manifest){
 			man <- data.table(man)
 		}
 		# Sanity checks. We'll require these columns initially
-		mincold <- c("CHR38", "BP38","REF","ALT", "BETA", "SE", "P","ALT_FREQ")
+		mincold <- c("CHR38", "BP38","REF","ALT", "BETA", "SE", "P","ALT_FREQ") # mistaken REF_ALT was not required in this function
 		if(!all(mincold %in% names(d))) stop("Minimum columns missing from dataset to be aligned, these are: ", paste(mincold, collapse=", "))
 		mincolm <- mincold[1:4]
 		if(!all(mincolm %in% names(man))) stop("Minimum columns missing from manifest to align dataset to be aligned to, these are: ", paste(mincolm, collapse=", "))
@@ -180,7 +182,7 @@ annotation <- fread("../manifest/assocvariants.annotated.txt.gz", tmpdir = "tmp"
 # process file
 fk <- fread(paste0(ppath, "/", file), tmpdir = "tmp")
 
-message("Annptating",trait)
+message("Annotating",trait)
 fk.m <- fk.annotate(fk,annotation)
 
 message("Aligning", trait)
