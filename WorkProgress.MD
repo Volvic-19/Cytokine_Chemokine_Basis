@@ -27,15 +27,24 @@
  
  # 2. Basis-building
 
-## Create Manifest
+## Create Manifest and process Ferkingstad datasets
 
-1. Intersect of **UKBB Asthma**, **PanUKBB Asthma**, **FinnGen Asthma** and **IL5 (a randomly selected Ferkingstad trait)** to create the initial manifest
-    * Input : 11071_1_IL5_IL_5.txt.gz, Asthma_PanUKBB_processed-hg38.tsv.gz, Asthma_Neale_processed-hg38.tsv.gz, Asthma_FinnGen.tsv.gz
+1. Take intersect SNPs of **UKBB Asthma**, **PanUKBB Asthma**, **FinnGen Asthma** and **IL5 (a randomly selected Ferkingstad trait)** to create the initial manifest, add LD block.
+    * Input : `11071_1_IL5_IL_5.txt.gz`, `Asthma_PanUKBB_processed-hg38.tsv.gz`, `Asthma_Neale_processed-hg38.tsv.gz`, `Asthma_FinnGen.tsv.gz`
     * Relevant Code : [adapted-00-create_IL5_consensus_SNP_list.R](https://github.com/Volvic-19/Cytokine_Chemokine_Basis/blob/main/basis_building/code/adapted-00-create_IL5_consensus_SNP_list.R)
-    * Output : rds-cew54-basis/Projects/Cytokine_Chemokine_Basis/basis_building/manifest/IL5_consensus_manifest_8M.tsv
+    * Output : `basis_building/manifest/IL5_consensus_manifest_8M.tsv`
 
-2. 
+2. Note that not all ImpMAF in raw Ferkingstad data are referring to effect allele frequency. Therefore we first mapped and created `ALT_FREQ` using `assocvariants.annotated.txt.gz`, which is an annotation file provided by Ferkingstad. Next we aligned all Ferkingstad datasets with initial manifest (IL5_consensus_manifest_8M.tsv), and eventually got 104 "manifested_data", in which only SNPs shared with initial manifest were kept.
+    * Input : `assocvariants.annotated.txt.gz`, `IL5_consensus_manifest_8M.tsv`, `basis_building/raw_fk_data/`
+    * Relevant Code : [adapted-01-Ferkingstad_datasets.R](https://github.com/Volvic-19/Cytokine_Chemokine_Basis/blob/main/basis_building/code/adapted-01-Ferkingstad_datasets.R) ` (There is a mistake in this script, as "REF_ALT" is actually "ALT_REF". I can rerun code to correct this mistake, but it is not very likely to be the reason to cause any difference in final results, as "REF" and "ALT" columns are correct. Also in alignment, shrinkage, PCA and projection steps, only "REF" and "ALT" columns were taken to go through alignment and computation, "REF_ALT" was supposed to be for convenience of read.) `
+    * Output : `basis_building/manifested_data/`
 
+3.  Merge 104 Ferkingstad datasets into one table. This is an intermediate step for slurm convenience.
+    * Input : `basis_building/manifested_data/`
+    * Relevant Code : [adapted-02-mergetables.R](https://github.com/Volvic-19/Cytokine_Chemokine_Basis/blob/main/basis_building/code/adapted-02-mergetables.R)
+    * Output : `basis_building/manifest/gwas.DT.tsv.gz`
+
+4.  
 
 
 
