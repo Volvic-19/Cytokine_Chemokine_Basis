@@ -1,4 +1,4 @@
-# This script is to update the IL5 manifest with overlap results. After updating, only SNPs kept in all 104 traits will be kept in IL5 manifest.
+# This script is to update the IL5 manifest with overlap results. After update, only SNPs shared by all 104 traits will be kept in IL5 manifest.
 # Load libraries
 library(data.table)
 setDTthreads(18)

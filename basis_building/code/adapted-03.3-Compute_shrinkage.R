@@ -1,6 +1,4 @@
-# Compute shrinkage for gwas.DT
-
-# Once we have filtered and aligned Ferkingstad datasets, we'll create a single Ferkingstad file with all 8 datasets.
+# Compute shrinkage 
 
 # 2022-06-20
 

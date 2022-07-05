@@ -74,7 +74,6 @@ projected.table <- lapply(lists_to_project, function(file){
 	projected.userdata
 })
 
-#current
 projected.table[sapply(projected.table, is.null)]  <- NULL 
 projected.table <- rbindlist(projected.table)
 projected.table  <- projected.table[,.(PC, Delta,Trait)]

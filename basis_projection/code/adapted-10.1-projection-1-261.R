@@ -78,14 +78,13 @@ projected.table <- lapply(files_to_project, function(file){
 	projected.userdata
 }
 ) 
-#current
+
 projected.table[sapply(projected.table, is.null)]  <- NULL 
 projected.table <- rbindlist(projected.table)
 projected.table  <- projected.table[,.(PC, Delta,Trait)]
 
 QC.table <- data.table(Trait, nSNP)
 
-#version  <- 1
 projtablename  <- paste0("Projection_cytokine_basis_nosig_", date, ".tsv")
 qctablename  <- paste0("QC_cytokine_basis_nosig_", date, ".tsv")
 

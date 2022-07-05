@@ -1,4 +1,4 @@
-## This script is to inspect data in shrinkage.e5.DT.tsv.gz, and create a further filtering of e4, e3, e2
+## This script is to inspect data in shrinkage.e5.DT.tsv.gz, and further filtering shrinkage table with threshold: e4, e3,e2
 
 library(data.table)
 setDTthreads(10)

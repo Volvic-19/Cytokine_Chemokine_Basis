@@ -1,13 +1,13 @@
-#########################################
-## DATASET FILTERING BY THE MANIFEST (e5), as part of the "quick projection"
-#########################################
+#############################################################################
+## DATASET FILTERD BY THE MANIFEST (e5), as part of the "quick projection"
+#############################################################################
+
+# This script [requires] "ALT_FREQ" in input data. external datasets 1-248 was generated from this script 
 
 # Introduction: This code is meant to pre-process our big files 
 #(located at 02-Liftovered/), filtering them by the SNPs in the 
-# SNP manifest, to make them more manageable
-# prior to project them onto the Cytokine cell basis
+# SNP manifest, to make them more manageable prior to project them onto the Cytokine basis
 
-# This script requires "ALT_FREQ" in input data. 1-248 was generated from this script 
 
 
 ##############################################

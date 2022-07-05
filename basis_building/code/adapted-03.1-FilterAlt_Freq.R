@@ -1,6 +1,4 @@
-# Compute shrinkage for gwas.DT
-
-# Once we have filtered and aligned Ferkingstad datasets, we'll create a single Ferkingstad file with all 8 datasets.
+# This script is an intermediate step. It filters out ALT_FREQ < 1% or >99% to help size down gwas.DT.tsv.gz 
 
 # 2022-06-20
 

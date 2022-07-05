@@ -2,12 +2,14 @@
 ## DATASET FILTERING BY THE MANIFEST (e5), as part of the "quick projection"
 #########################################
 
+# This script [does not] require "ALT_FREQ" in input data. external datasets 249-261 was generated from this script 
+
+
 # Introduction: This code is meant to pre-process our big files 
 #(located at 02-Liftovered/), filtering them by the SNPs in the 
 # SNP manifest, to make them more manageable
-# prior to project them onto the Cytokine cell basis
+# prior to project them onto the Cytokine basis
 
-# This script does not require "ALT_FREQ" in input data. 249-261 was generated from this script 
 
 
 ##############################################
@@ -19,13 +21,8 @@ library(magrittr)
 setDTthreads(10)
 
 
-#load("~/rds/rds-cew54-basis/03-Bases/cell_basis_v2/cell-basis-sparse-2.0.RData")
-#setwd("/home/qz284/rds/rds-cew54-basis/Projects/Cytokine_Chemokine_Basis/basis_projection/code")
-
 # Load manifest
 SNP.manifest <- fread("../../basis_building/manifest/IL5_consensus_manifest_6M_e5.tsv")
-#input <- fread("~/rds/rds-cew54-basis/02-Processed/PBC_Cordell_26394269_1-hg38.tsv.gz")
-#input261 <- fread("~/rds/rds-cew54-basis/02-Processed/T1D_Chiou_34012112_1-hg38.tsv.gz")
 
 ######################################################
 ###	 Load aligner functions		 #############

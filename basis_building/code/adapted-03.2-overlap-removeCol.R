@@ -1,6 +1,5 @@
-# Compute shrinkage for gwas.DT
-
-# Once we have filtered and aligned Ferkingstad datasets, we'll create a single Ferkingstad file with all 8 datasets.
+# This is an intermediate step to keep only SNPs present in all 104 Ferkingstad traits.
+# Unnecessary columns were removed to save computing memory. Otherwise Slurm job could easily be shut down.
 
 # 2022-06-20
 
