@@ -34,9 +34,9 @@
     * Relevant Code : [adapted-00-create_IL5_consensus_SNP_list.R](https://github.com/Volvic-19/Cytokine_Chemokine_Basis/blob/main/basis_building/code/adapted-00-create_IL5_consensus_SNP_list.R)
     * Output : `basis_building/manifest/IL5_consensus_manifest_8M.tsv`
 
-2. Note that not all ImpMAF in raw Ferkingstad data are referring to effect allele frequency. Therefore we first mapped and created `ALT_FREQ` using `assocvariants.annotated.txt.gz`, which is an annotation file provided by Ferkingstad. Next we aligned all Ferkingstad datasets with initial manifest (IL5_consensus_manifest_8M.tsv), and eventually got 104 "manifested_data", in which only SNPs shared with initial manifest were kept.
+2. Note that not all ImpMAF in raw Ferkingstad data are referring to effect allele frequency. Therefore we first mapped and created `ALT_FREQ` using `assocvariants.annotated.txt.gz`, which is an annotation file provided by Ferkingstad to address this issue. Next we aligned all Ferkingstad datasets with initial manifest (IL5_consensus_manifest_8M.tsv), and eventually got 104 "manifested_data", in which only SNPs shared with initial manifest were kept.
     * Input : `assocvariants.annotated.txt.gz`, `IL5_consensus_manifest_8M.tsv`, `basis_building/raw_fk_data/`
-    * Relevant Code : [adapted-01-Ferkingstad_datasets.R](https://github.com/Volvic-19/Cytokine_Chemokine_Basis/blob/main/basis_building/code/adapted-01-Ferkingstad_datasets.R) ` (There is a mistake in this script, as "REF_ALT" is actually "ALT_REF". I can rerun code to correct this mistake, but it is not very likely to be the reason to cause any difference in final results, as "REF" and "ALT" columns are correct. Also in alignment, shrinkage, PCA and projection steps, only "REF" and "ALT" columns were taken to go through alignment and computation, "REF_ALT" was supposed to be for convenience of read.) `
+    * Relevant Code : [adapted-01-Ferkingstad_datasets.R](https://github.com/Volvic-19/Cytokine_Chemokine_Basis/blob/main/basis_building/code/adapted-01-Ferkingstad_datasets.R) ` (There is a mistake in this script, as "REF_ALT" is actually "ALT_REF". I can rerun code to correct this mistake, but it is not very likely to be the reason to cause any difference in final results, as "REF" and "ALT" columns are correct. Also in alignment, shrinkage, PCA and projection steps, only "REF","ALT" and "pid" columns were taken to go through alignment and computation, "REF_ALT" was supposed to be only for convenience of read.) `
     * Output : `basis_building/manifested_data/`
 
 3.  Merge 104 Ferkingstad datasets into one table. This is an intermediate step for slurm convenience.
@@ -44,7 +44,63 @@
     * Relevant Code : [adapted-02-mergetables.R](https://github.com/Volvic-19/Cytokine_Chemokine_Basis/blob/main/basis_building/code/adapted-02-mergetables.R)
     * Output : `basis_building/manifest/gwas.DT.tsv.gz`
 
-4.  
+4.  Remove SNPs with ALT_FREQ < 1% or >99%. This is an intermediate step to help size down `gwas.DT.tsv.gz`
+    * Input : `basis_building/manifest/gwas.DT.tsv.gz`
+    * Relevant Code : [adapted-03.1-FilterAlt_Freq.R](https://github.com/Volvic-19/Cytokine_Chemokine_Basis/blob/main/basis_building/code/adapted-03.1-FilterAlt_Freq.R)
+    * Output : `basis_building/manifest/filtered.1.99.gwas.DT.tsv.gz`
+
+5.  Keep only SNPs present in all 104 Ferkingstad traits. This is an intermediate step. Non-essential columns were also removed to save computing memory, as otherwise Slurm job could easily be terminated by HPC.
+    * Input : `basis_building/manifest/filtered.1.99.gwas.DT.tsv.gz`
+    * Relevant Code : [adapted-03.2-overlap-removeCol.R](https://github.com/Volvic-19/Cytokine_Chemokine_Basis/blob/main/basis_building/code/adapted-03.2-overlap-removeCol.R)
+    * Output : `basis_building/manifest/overlap.gwas.DT.tsv.gz`
+
+
+## Compute Shrinkage table and PCA
+
+1.  Compute shrinkage, output complete shrinkage table, shrinkage table with threshold set on 1e-5, 1e-6
+    * Input : `basis_building/manifest/overlap.gwas.DT.tsv.gz`
+    * Relevant Code : [adapted-03.3-Compute_shrinkage.R](https://github.com/Volvic-19/Cytokine_Chemokine_Basis/blob/main/basis_building/code/adapted-03.3-Compute_shrinkage.R)
+    * Output : `basis_building/manifest/shrinkage.DT.tsv.gz`, `shrinkage.e5.DT.tsv.gz`, `shrinkage.e6.DT.tsv.gz`, 
+
+2.  Update manifest. This is an intermediate step to keep only SNPs shared by all 104 Ferkingstad traits in our manifest.
+    * Input : `basis_building/manifest/IL5_consensus_manifest_8M.tsv`
+    * Relevant Code :[adapted-04-update_manifest.R](https://github.com/Volvic-19/Cytokine_Chemokine_Basis/blob/main/basis_building/code/adapted-04-update_manifest.R)
+    * Output : `basis_building/manifest/IL5_consensus_manifest_6M.tsv`
+
+
+3.  Apply threshold on shrinkage table. This is an intermediate step to size down shrinkage table and SNPs to use.
+    * Input : `basis_building/manifest/shrinkage.e5.DT.tsv.gz`
+    * Relevant Code :[adapted-05-Threshold_shrinkagetable.R](https://github.com/Volvic-19/Cytokine_Chemokine_Basis/blob/main/basis_building/code/adapted-05-Threshold_shrinkagetable.R)
+    * Output : `basis_building/manifest/shrinkage.e4.DT.tsv.gz`, `shrinkage.e3.DT.tsv.gz`, `shrinkage.e2.DT.tsv.gz`
+
+4.  PCA. We take shrinkage table with threshold at 1e-5 as input, and save the computed basis.
+    * Input : `basis_building/manifest/shrinkage.e5.DT.tsv.gz`
+    * Relevant Code :[adapted-06-PCA.R](https://github.com/Volvic-19/Cytokine_Chemokine_Basis/blob/main/basis_building/code/adapted-06-PCA.R)
+    * Output : `basis_building/PCA/cytokine_basis.RDS`, `cytokine_basis_matrix.RDS`
+
+5.  Update manifest. This is an intermediate step, after update, manifest will only keep SNPs whose shrinkage value  is > 1e-5 in shrinkage table. (i.e. This is final version of manifest, where all SNPs are the same as our basis. In projection process, all external datasets will be reduced and aligned with this final manifest before projection.)
+    * Input : `basis_building/manifest/IL5_consensus_manifest_6M.tsv`
+    * Relevant Code :[adapted-07-update_manifest_e5.R](https://github.com/Volvic-19/Cytokine_Chemokine_Basis/blob/main/basis_building/code/adapted-07-update_manifest_e5.R)
+    * Output : `IL5_consensus_manifest_6M_e5.tsv`
+
+6.  PCA. We take shrinkage table with threshold at 1e-5 as input, and save the computed basis.
+    * Input : `basis_building/manifest/shrinkage.e5.DT.tsv.gz`
+    * Relevant Code :[adapted-06-PCA.R](https://github.com/Volvic-19/Cytokine_Chemokine_Basis/blob/main/basis_building/code/adapted-06-PCA.R)
+    * Output : `basis_building/PCA/cytokine_basis.RDS`, `cytokine_basis_matrix.RDS`
+
+
+
+ # 3. Basis-projection
+ 
+## Reduction: Before projection, reduce and align external datasets with final manifest (e5)
+
+1.  Compute shrinkage, output complete shrinkage table, shrinkage table with threshold set on 1e-5, 1e-6
+    * Input : `basis_building/manifest/overlap.gwas.DT.tsv.gz`
+    * Relevant Code : [adapted-03.3-Compute_shrinkage.R](https://github.com/Volvic-19/Cytokine_Chemokine_Basis/blob/main/basis_building/code/adapted-03.3-Compute_shrinkage.R)
+    * Output : `basis_building/manifest/shrinkage.DT.tsv.gz`, `shrinkage.e5.DT.tsv.gz`, `shrinkage.e6.DT.tsv.gz`, 
+
+
+
 
 
 
