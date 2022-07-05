@@ -12,7 +12,7 @@ IL5_consensus_manifest_6M_e5.tsv
 *.RDS
 
 ## imtermediated output files from hpc
-
+*.tmp
 *.err
 *.out
 
