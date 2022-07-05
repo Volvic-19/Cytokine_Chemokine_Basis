@@ -92,13 +92,30 @@
 
  # 3. Basis-projection
  
-## Reduction: Before projection, reduce and align external datasets with final manifest (e5)
+1.  Reduction: Before projection, reduce and align external datasets with final manifest (e5). List of external datasets to project is [here](https://github.com/Volvic-19/Cytokine_Chemokine_Basis/blob/main/basis_projection/code/traits_to_project_early_test.txt) We projected in total 261 external datasets, the first no. 1-248 datasets were processed through `adapted-08.1-reduction.R`, the rest no. 249-261 datasets were processed with `adapted-08.2-reduction.R` due to format difference. I noticed that many datasets have less than 95% coverage of basis SNPs, possibly because we are not using sparse SNPs and the total size of SNP is still quite large.
+    * Input : `IL5_consensus_manifest_6M_e5.tsv`, `~/rds/rds-cew54-basis/02-Processed/`
+    * Relevant Code : [adapted-08.1-reduction.R](https://github.com/Volvic-19/Cytokine_Chemokine_Basis/blob/main/basis_projection/code/adapted-08.1-reduction.R)[adapted-08.2-reduction.R](https://github.com/Volvic-19/Cytokine_Chemokine_Basis/blob/main/basis_projection/code/adapted-08.2-reduction.R)
+    * Output : `basis_projection/data/`
 
-1.  Compute shrinkage, output complete shrinkage table, shrinkage table with threshold set on 1e-5, 1e-6
-    * Input : `basis_building/manifest/overlap.gwas.DT.tsv.gz`
-    * Relevant Code : [adapted-03.3-Compute_shrinkage.R](https://github.com/Volvic-19/Cytokine_Chemokine_Basis/blob/main/basis_building/code/adapted-03.3-Compute_shrinkage.R)
-    * Output : `basis_building/manifest/shrinkage.DT.tsv.gz`, `shrinkage.e5.DT.tsv.gz`, `shrinkage.e6.DT.tsv.gz`, 
+2.  Pack projection function and basis into one Rdata, to save future repeatitive computation. 
+    * Input :`cytokine_basis.RDS`, `cytokine_basis_matrix.RDS`, `shrinkage.e5.DT.tsv.gz`, `IL5_consensus_manifest_6M_e5.tsv`
+    * Relevant Code: [adapted-09-saveBasisRdata.R](https://github.com/Volvic-19/Cytokine_Chemokine_Basis/blob/main/basis_projection/code/adapted-09-saveBasisRdata.R)
+    * Output : `/Rdata/cytokine_completeSNP.Rdata`
 
+3.  Projection: 261 external datasets 
+    * Input : `cytokine_completeSNP.Rdata`, `basis_projection/data/`
+    * Relevant Code: [adapted-10.1-projection-1-261.R](https://github.com/Volvic-19/Cytokine_Chemokine_Basis/blob/main/basis_projection/code/adapted-10.1-projection-1-261.R)
+    * Output : `basis_projection/Projections`
+
+4.  Projection: Ferkingstad datasets (We don't need to reduce them, instead we can use shrinkage table which has been aligned to manifest)
+    * Input : `cytokine_completeSNP.Rdata`, `shrinkage.e5.DT.tsv.gz`
+    * Relevant Code: [adapted-10.2-projection-basis_to_basis.R](https://github.com/Volvic-19/Cytokine_Chemokine_Basis/blob/main/basis_projection/code/adapted-10.2-projection-basis_to_basis.R)
+    * Output : `basis_projection/Projections`
+
+5.  Plot projections, we plot Ferkingstad projection together with Ahola / Folkerson datasets. In order to unify names used in different studies, we mapped trait name with "Common_name", which are the names used in [<Cytokines, Chemokines and Their Receptors>] book. As the plots look a little odd, I have checked the "odd traits" in projection table, and can confirm that the odd results are genuinely because of computed delta value, not any error introduced in plotting.
+    * Input : `basis_projection/Projections`
+    * Relevant Code: [adapted-11-plotprojection-intersectAholaFolkersen.R](https://github.com/Volvic-19/Cytokine_Chemokine_Basis/blob/main/basis_projection/code/adapted-11-plotprojection-intersectAholaFolkersen.R)
+    * Output :`basis_projection/Plots/`
 
 
 
