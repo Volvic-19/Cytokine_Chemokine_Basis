@@ -107,7 +107,7 @@
     * Relevant Code: [adapted-10.2-projection-basis_to_basis.R](https://github.com/Volvic-19/Cytokine_Chemokine_Basis/blob/main/basis_projection/code/adapted-10.2-projection-basis_to_basis.R)
     * Output : `basis_projection/Projections`
 
-5.  Plot projections, we plot Ferkingstad projection together with Ahola / Folkerson datasets. In order to unify names used in different studies, we mapped trait name with "Common_name", which are the names used in [<Cytokines, Chemokines and Their Receptors>] book. As the plots look a little odd, I have checked the "odd traits" in projection table, and can confirm that the odd results are genuinely because of computed delta value, not any error introduced in plotting.
+5.  Plot projections, we plot Ferkingstad projection together with Ahola / Folkerson projections. In order to unify names used in different studies, we mapped each trait name with "Common_name", which are the names used in [<Cytokines, Chemokines and Their Receptors>] book. As the plots look a little odd, I have checked the "odd data points" in projection table, and can confirm that the odd results are genuinely because of computed delta value, not any error introduced in plotting.
     * Input : `basis_projection/Projections`
     * Relevant Code: [adapted-11-plotprojection-intersectAholaFolkersen.R](https://github.com/Volvic-19/Cytokine_Chemokine_Basis/blob/main/basis_projection/code/adapted-11-plotprojection-intersectAholaFolkersen.R)
     * Output :`basis_projection/Plots/`
