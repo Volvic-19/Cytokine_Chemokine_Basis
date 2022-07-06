@@ -83,11 +83,6 @@
     * Relevant Code :[adapted-07-update_manifest_e5.R](https://github.com/Volvic-19/Cytokine_Chemokine_Basis/blob/main/basis_building/code/adapted-07-update_manifest_e5.R)
     * Output : `IL5_consensus_manifest_6M_e5.tsv`
 
-6.  PCA. We take shrinkage table with threshold at 1e-5 as input, and save the computed basis.
-    * Input : `basis_building/manifest/shrinkage.e5.DT.tsv.gz`
-    * Relevant Code :[adapted-06-PCA.R](https://github.com/Volvic-19/Cytokine_Chemokine_Basis/blob/main/basis_building/code/adapted-06-PCA.R)
-    * Output : `basis_building/PCA/cytokine_basis.RDS`, `cytokine_basis_matrix.RDS`
-
 
 
  # 3. Basis-projection
