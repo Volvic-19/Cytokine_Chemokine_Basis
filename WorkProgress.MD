@@ -89,7 +89,7 @@
  
 1.  Reduction: Before projection, reduce and align external datasets with final manifest (e5). List of external datasets to project is [here](https://github.com/Volvic-19/Cytokine_Chemokine_Basis/blob/main/basis_projection/code/traits_to_project_early_test.txt) We projected in total 261 external datasets, the first no. 1-248 datasets were processed through `adapted-08.1-reduction.R`, the rest no. 249-261 datasets were processed with `adapted-08.2-reduction.R` due to format difference. I noticed that many datasets have less than 95% coverage of basis SNPs, possibly because we are not using sparse SNPs and the total size of SNP is still quite large.
     * Input : `IL5_consensus_manifest_6M_e5.tsv`, `~/rds/rds-cew54-basis/02-Processed/`
-    * Relevant Code : [adapted-08.1-reduction.R](https://github.com/Volvic-19/Cytokine_Chemokine_Basis/blob/main/basis_projection/code/adapted-08.1-reduction.R)[adapted-08.2-reduction.R](https://github.com/Volvic-19/Cytokine_Chemokine_Basis/blob/main/basis_projection/code/adapted-08.2-reduction.R)
+    * Relevant Code : [adapted-08.1-reduction.R](https://github.com/Volvic-19/Cytokine_Chemokine_Basis/blob/main/basis_projection/code/adapted-08.1-reduction.R)  [adapted-08.2-reduction.R](https://github.com/Volvic-19/Cytokine_Chemokine_Basis/blob/main/basis_projection/code/adapted-08.2-reduction.R)
     * Output : `basis_projection/data/`
 
 2.  Pack projection function and basis into one Rdata, to save future repeatitive computation. 
