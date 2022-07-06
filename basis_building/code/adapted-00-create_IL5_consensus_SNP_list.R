@@ -1,5 +1,5 @@
 
-# This script uses the processed Chen, UKBB (Neale + PanUKBB),FinnGen and IL5 from Ferkingstad to create an intersection SNP list 
+# This script uses the processed  UKBB (Neale + PanUKBB),FinnGen and IL5 from Ferkingstad to create an intersection SNP list 
 # Compared to the old version script, note that CHR19 and BP19 were kept for further mapping
 
 library(data.table)
