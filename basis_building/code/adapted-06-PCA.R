@@ -45,12 +45,6 @@ biplot
 ggsave("../plots/e5_PC1_PC2.png", biplot)
 
 
-# Visualising the basis(hierarchical clustering)
-
-#cluster <- basis$x %>% dist %>% hclust
-#plot(cluster)
-
-
 
 # Save files
 
@@ -62,8 +56,7 @@ basis <- readRDS("../PCA/cytokine_basis.RDS")
 basis.mat <- readRDS("../PCA/cytokine_basis_matrix.RDS")
 
 
-
-# Compute a sparse basis (we have  673,318_ SNPs at the moment, but can further filter to get _ sparse SNPs that recreate the projected matrix )
+# Inspect PCs
 
 M.centred <- scale(basis.mat,center=TRUE,scale=FALSE) # centered input
 M.centre <- attr(M.centred,"scaled:center") # centre
