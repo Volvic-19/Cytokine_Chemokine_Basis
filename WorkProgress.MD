@@ -29,8 +29,8 @@
 
 ## Create Manifest and process Ferkingstad datasets
 
-1. Take intersect SNPs of **UKBB Asthma**, **PanUKBB Asthma**, **FinnGen Asthma** and **IL5 (a randomly selected Ferkingstad trait)** to create the initial manifest, add LD block.
-    * Input : `11071_1_IL5_IL_5.txt.gz`, `Asthma_PanUKBB_processed-hg38.tsv.gz`, `Asthma_Neale_processed-hg38.tsv.gz`, `Asthma_FinnGen.tsv.gz`
+1. Take intersect SNPs of **UKBB Asthma**, **PanUKBB Asthma**, **FinnGen Asthma** and **IL5 (a randomly selected Ferkingstad trait)** to create the initial manifest, add LD block. We align "REF" and "ALT" in our initial manifest with "Reference_1000GP_manifest.tsv.gz"
+    * Input : `11071_1_IL5_IL_5.txt.gz`, `Asthma_PanUKBB_processed-hg38.tsv.gz`, `Asthma_Neale_processed-hg38.tsv.gz`, `Asthma_FinnGen.tsv.gz`,`Reference_1000GP_manifest.tsv.gz`
     * Relevant Code : [adapted-00-create_IL5_consensus_SNP_list.R](https://github.com/Volvic-19/Cytokine_Chemokine_Basis/blob/main/basis_building/code/adapted-00-create_IL5_consensus_SNP_list.R)
     * Output : `basis_building/manifest/IL5_consensus_manifest_8M.tsv`
 
