@@ -25,7 +25,7 @@ M.centred <- scale(basis.mat,center=TRUE,scale=FALSE) # centered input
 #M.centre <- attr(M.centred,"scaled:center") 
 #M.projected <- M.centred %*% basis$rotation # projection # 105*105
 
-# rot.pca: As we did not remove any sparse SNPs at this stage, it will be just complet rotation matrix
+# rot.pca: As we did not remove any sparse SNPs at this stage, it will be just complete rotation matrix
 rot.pca <- basis$rotation
 
 # beta.centers: named vector, length of complete unique SNPs
@@ -70,4 +70,11 @@ README <- c(rot.pca = "rotation matrix (not sparsed yet, complete SNPs)",
 
 
 save(rot.pca, beta.centers, shrinkage, SNP.manifest, project_nosig, README, file = "../Rdata/cytokine_completeSNP.Rdata")
+
+## preview the number of non-zero SNPs in PC 1-20
+#summary(rot.pca)
+#colSums(!rot.pca == 0)
+
+#min(abs(rot.pca[,"PC1"]))
+#[1] 1.692257e-11
 

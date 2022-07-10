@@ -1,12 +1,15 @@
 # Preparing manifest-filtered (8M) Ferkingstad datasets prior to basis creation.
 
-# We'll now import the 104-1(as IL5 was already used in initial manifest) Ferkingstad datasets of cytokine and chemokine.
+# We'll now import the 104 Ferkingstad datasets of cytokine and chemokine.
 # We'll filter them by the initial manifest, keep relevant columns, check alignment and that all SNPs are common among all files and put them together for the next step.
 
+# Slurm: sbatch --array 1-104 slurm_01filter_FK
+
+# 2022/07/07: previous mistake of REF_ALT is corrected here.
 
 # Load libraries
 library(data.table)
-setDTthreads(18)
+setDTthreads(0)
 
 
 ### fk.annotate function to prepare raw Ferkingstad datasets for g.align
@@ -28,7 +31,7 @@ fk.annotate <- function(fk,annotation){
 		fk.m[, effectAllele.a:=NULL]
 		fk.m[, effectAllele:=effectAllele.f]
 		fk.m[, effectAllele.f:=NULL]
-		fk.m[is.na(effectAlleleFreq), effectAlleleFreq:=ImpMAF] 
+		fk.m[is.na(effectAlleleFreq), effectAlleleFreq:=ImpMAF] #if not in annotation file, keep original ImpMAF as effectAlleleFreq
 		
 	}else{
 		error("mismatched effectAllele! Check fk effectAllele and annotation effectAllele!")
@@ -39,10 +42,8 @@ fk.annotate <- function(fk,annotation){
 	fk.m[ , pid:=paste(CHR38, Pos, sep=":")]
 	fk.m[ , BP38:=as.integer(Pos)]
 	fk.m[ , CHR38:=as.integer(CHR38)]
-	fk.m[ , REF_ALT:=paste(effectAllele, otherAllele, sep = "/")] 
-	# Here is a mistake. it should be paste(otherAllele,effectAllele,sep = "/"). But this column was never used
-	# in later shrinkage computation, PCA or projection, as REF and ALT columns are correct and taken as input in alignment functions
-
+	fk.m[ , REF_ALT:=paste(otherAllele, effectAllele, sep = "/")] 
+	# Previous REF_ALT mistake corrected. 2022/07/07
 
 	fk.m[ , c("Chrom","Pos","minus_log10_pval"):=NULL]
 
@@ -184,6 +185,10 @@ fk <- fread(paste0(ppath, "/", file), tmpdir = "tmp")
 
 message("Annotating",trait)
 fk.m <- fk.annotate(fk,annotation)
+
+# Align to initial manifest
+# This time will not have a lot of "no change", as our initial manifest is no longer a simple subset of Ferkingstad IL5,
+# itself was aligned to Refman. So a lot of SNPs would have to be flipped.
 
 message("Aligning", trait)
 M <- g.align(fk.m, manifest)
