@@ -18,6 +18,7 @@ CCL8_consensus_manifest_6M_e5.tsv
 *.tmp
 *.err
 *.out
+basis_projection/code/tmp/
 
 ## output from pipeline
 
