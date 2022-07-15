@@ -1,6 +1,7 @@
 ## This script is to be applied after shrinkage. We first input shrinkage metrics, create matrix of shrinked values,
 ## and then use PCA to create the basis
 
+## 2022-07-11
 
 library(data.table)
 library(reshape2)
@@ -11,7 +12,6 @@ library(cowplot)
 
 setDTthreads(10)
 
-# 21-06-2022
 
 
 
@@ -31,7 +31,7 @@ basis <- stats::prcomp(basis.mat,center = TRUE, scale = FALSE)
 # Visualising the basis(draw PCA biplot)
 
 plot.DT <- data.table(trait=rownames(basis$x),basis$x)
-biplot <- ggplot(plot.DT, aes(PC1,PC2, label = trait))+
+biplot <- ggplot(plot.DT, aes(PC5,PC6, label = trait))+
   geom_point()+
   geom_label_repel(size=3,force = 20, seed = 1) + 
   ggtitle("Cytokine_chemokine basis biplot: e5")+
@@ -42,18 +42,18 @@ biplot <- ggplot(plot.DT, aes(PC1,PC2, label = trait))+
 # with(plot.DT,text(PC1,PC2,labels=trait, cex= 0.8, adj=c(0,0)))
 # with(plot.DT,points(PC1,PC2,cex=0.5,pch=19))
 biplot
-ggsave("../plots/e5_PC1_PC2.png", biplot)
+ggsave("../plots/basis40/basis40_e5_PC5_PC6.png", biplot)
 
 
 
 # Save files
 
-saveRDS(basis, "../PCA/cytokine_basis.RDS")
-saveRDS(basis.mat, "../PCA/cytokine_basis_matrix.RDS")
+saveRDS(basis, "../PCA/cytokine_basis_40.RDS")
+saveRDS(basis.mat, "../PCA/cytokine_basis_matrix_40.RDS")
 
 # Read files
-basis <- readRDS("../PCA/cytokine_basis.RDS")
-basis.mat <- readRDS("../PCA/cytokine_basis_matrix.RDS")
+basis <- readRDS("../PCA/cytokine_basis_40.RDS")
+basis.mat <- readRDS("../PCA/cytokine_basis_matrix_40.RDS")
 
 
 # Inspect PCs
@@ -74,9 +74,9 @@ reconstruction.error.plot <- function(basis, basis.mat, scale="linear"){
   M.centred <- scale(basis.mat,center=TRUE,scale=FALSE) # centered input
   M.centre <- attr(M.centred,"scaled:center") # centre
   M.projected <- M.centred %*% basis$rotation # projection # each column of basis$rotation is an eigenvector
-  p <- ncol(M.centred) # 265701
-  n <- nrow(M.centred) # 36
-  u <- ncol(M.projected) # 36
+  p <- ncol(M.centred)  # 641079
+  n <- nrow(M.centred)  # 41
+  u <- ncol(M.projected)   # 41
   if (n != u) stop("Something's wrong, nrow(M.centred) and ncol(M.projected) are not the same!")
   err <- sapply(1:u, function(k) {
     reconstructed <- matrix(M.centre,n,p) +
@@ -93,8 +93,14 @@ reconstruction.error.plot <- function(basis, basis.mat, scale="linear"){
 
 
 # Plot MSE reconstruction error
+png(file = "../plots/basis40/basis40_MSE.png")
 reconstruction.error.plot(basis = basis, basis.mat = basis.mat)
+dev.off()
+
+png(file = "../plots/basis40/basis40_MSE_log.png")
 reconstruction.error.plot(basis = basis, basis.mat = basis.mat, scale = "log")
+dev.off()
+
 
 # Plot scree plot (eigenvalue)
 # compute total variance
@@ -113,5 +119,5 @@ plot_scree <- function(basis){
 }
 
 scree.plot <- plot_scree(basis)
-ggsave("../plots/scree_plot_e5.png", scree.plot)
+ggsave("../plots/basis40/basis40_scree_plot_e5.png", scree.plot)
 

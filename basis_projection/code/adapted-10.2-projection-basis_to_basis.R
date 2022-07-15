@@ -4,6 +4,7 @@
 # To save the pain of reducing Ferkingstad datasets, we use BETA, SE, Pid from shrinkage table to do projection.
 
 # Before running projection, we need to load Rdata to avoid repeated computing of : basis, 
+# 2022-07-11
 
 library(data.table)
 library(Matrix)
@@ -11,14 +12,14 @@ library(magrittr)
 
 setDTthreads(10)
 
-# 673,318 unique SNPs
+# 641,079 unique SNPs
 
 
 ##############################################
 ### LOAD Rdata and run projection
 ##############################################
 
-load("../Rdata/cytokine_completeSNP.Rdata")
+load("../Rdata/cytokine_completeSNP_40.Rdata") #_40
 
 # Create log file
 mpath <- "~/rds/rds-cew54-basis/Projects/Cytokine_Chemokine_Basis/basis_projection/code/log/"
@@ -28,7 +29,7 @@ file.create(logname)
 
 # Files to project
 e5  <- fread("../../basis_building/manifest/shrinkage.e5.DT.tsv.gz", tmpdir = "tmp") 
-lists_to_project <- split(e5, e5$Trait) # A list of length 104, each element is a trait datatable to project
+lists_to_project <- split(e5, e5$Trait) # A list of length 40, each element is a trait datatable to project
 
 nfiles <- length(lists_to_project)
 
@@ -72,7 +73,7 @@ projected.table <- lapply(lists_to_project, function(file){
 	}
 	
 	projected.userdata
-})
+}) #current
 
 projected.table[sapply(projected.table, is.null)]  <- NULL 
 projected.table <- rbindlist(projected.table)
@@ -81,8 +82,8 @@ projected.table  <- projected.table[,.(PC, Delta,Trait)]
 QC.table <- data.table(Trait = names(nSNP), nSNP)
 
 # Write tables
-projtablename  <- paste0("Projection_cytokine_basis_nosig_basisTobasis", date, ".tsv")
-qctablename  <- paste0("QC_cytokine_basis_nosig_basisTobasis", date, ".tsv")
+projtablename  <- paste0("Projection_cytokine_basis_nosig_basisTobasis_40_", date, ".tsv") #_40
+qctablename  <- paste0("QC_cytokine_basis_nosig_basisTobasis_40_", date, ".tsv") #_40
 
 
 message("start writing projected.table & QC.table")

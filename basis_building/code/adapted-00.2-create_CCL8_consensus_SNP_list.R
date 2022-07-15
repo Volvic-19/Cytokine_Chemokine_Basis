@@ -1,7 +1,8 @@
 
-# This script uses the processed  UKBB (Neale + PanUKBB),FinnGen, IL5 from Ferkingstad and reference_1000GP_manifest to create an intersection SNP list 
+# This script uses the processed  UKBB (Neale + PanUKBB),FinnGen, CCL8 (13748_4_CCL8_MCP_2.txt.gz) from Ferkingstad and reference_1000GP_manifest to create an intersection SNP list 
 # Compared to the old version script, note that CHR19 and BP19 were kept for further mapping
 # 2022/07/07 : added the reference_1000 genome alignment step
+# 2022/07/10 : change to 40 datasets instead of 104, use CCL8 as randomly selected Ferkingstad dataset instead of IL5
 
 library(data.table)
 setDTthreads(15)
@@ -13,7 +14,7 @@ setwd("~/rds/rds-cew54-basis/Projects/Cytokine_Chemokine_Basis/basis_building/")
 
 # Load files
 
-fk  <- fread("raw_fk_data/11071_1_IL5_IL_5.txt.gz") # Example Ferkingstad file (IL5)
+fk  <- fread("raw_fk_data_40/13748_4_CCL8_MCP_2.txt.gz") # Example Ferkingstad file (CCL8)
 pu  <- fread("Asthma_PanUKBB_processed-hg38.tsv.gz") # PanUKBB 
 ne  <- fread("Asthma_Neale_processed-hg38.tsv.gz") # Neale
 fg  <- fread("Asthma_FinnGen.tsv.gz") # FinnGen R6 example file
@@ -109,7 +110,7 @@ manifest  <- manifest[ !ld.block %in% mhc.blocks ] # 7938496 SNPs
 refman <- fread("manifest/Reference_1000GP_manifest.tsv.gz")
 
 # Since our aligner is meant for summary statistics datasets, we need to fool it by adding some of the "minimum columns required"
-manifest[, REF_ALT := alleles][, alleles:=NULL]
+#manifest[, REF_ALT := alleles][, alleles:=NULL]
 manifest[, c("BETA", "SE", "P"):= 0]
 refman[,alleles:=NULL]
 d <- copy(manifest) #7938496
@@ -121,7 +122,7 @@ m.al <- g.align(ds = d, manifest = refman) # here refman will be our manifest, a
 
 m.al[,c("BETA", "SE", "P"):=NULL]
 m.al <- m.al[order(CHR38,BP38)] # FOR example, 1:818802 flipped from "A/G" to "G/A"
-m.al[, REF_ALT:=NULL]
+#m.al[, REF_ALT:=NULL]
 
 # Sanity check: if all REF, ALT in m.al is the same as what is in Reference_1000GP_manifest
 #mm <- merge(m.al, refman[,.(pid, REF, ALT)], by="pid", suffixes=c(".ast", ".ref"))
@@ -132,7 +133,7 @@ any(duplicated(m.al$pid))
 # [1] FALSE
 
 # Save the new consensus manifest
-fwrite(m.al, "manifest/IL5_consensus_manifest_8M.tsv", sep="\t") 
+fwrite(m.al, "manifest/CCL8_consensus_manifest_8M.tsv", sep="\t") 
 
 # 7833926 SNP
 

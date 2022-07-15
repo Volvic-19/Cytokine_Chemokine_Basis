@@ -1,16 +1,16 @@
-#############################################################################
-## DATASET FILTERD BY THE MANIFEST (e5), as part of the "quick projection"
-#############################################################################
+#######################################################################################################
+## DATASET FILTERD BY THE MANIFEST (e5 sparse), as pre-work of the complete projection on FK-40-sparse basis #
+#######################################################################################################
 
-# This script [requires] "ALT_FREQ" in input data. external datasets 1-248 was generated from this script 
+# This script [does not require] "ALT_FREQ" in input data. (And we don't need ALT_FREQ in our projection)
 
 # Introduction: This code is meant to pre-process our big files 
 #(located at 02-Liftovered/), filtering them by the SNPs in the 
 # SNP manifest, to make them more manageable prior to project them onto the Cytokine basis
 
-# sbatch --array 1-248 slurm_adapted-08.1-reduce_test
+# sbatch --array 1-261 slurm_adapted-15-reduce
 
-# 2022-07-11
+# 2022-07-14
 
 
 ##############################################
@@ -22,11 +22,9 @@ library(magrittr)
 setDTthreads(10)
 
 
-#load("~/rds/rds-cew54-basis/03-Bases/cell_basis_v2/cell-basis-sparse-2.0.RData")
-#setwd("/home/qz284/rds/rds-cew54-basis/Projects/Cytokine_Chemokine_Basis/basis_projection/code")
-
 # Load manifest
-SNP.manifest <- fread("../../basis_building/manifest/CCL8_consensus_manifest_6M_e5.tsv")
+SNP.manifest <- fread("../../basis_building/manifest/CCL8_consensus_manifest_6M_e5_sparse.tsv") # 5519 * 8
+
 
 ######################################################
 ###	 Load aligner functions		 #############
@@ -74,7 +72,7 @@ g.align <- function(ds, manifest){
 			man <- data.table(man)
 		}
 		# Sanity checks. We'll require these columns initially
-		mincold <- c("CHR38", "BP38","REF","ALT", "BETA", "SE", "P","ALT_FREQ")
+		mincold <- c("CHR38", "BP38","REF","ALT", "BETA", "SE", "P") #remove "ALT_FREQ"
 		if(!all(mincold %in% names(d))) stop("Minimum columns missing from dataset to be aligned, these are: ", paste(mincold, collapse=", "))
 		mincolm <- mincold[1:4]
 		if(!all(mincolm %in% names(man))) stop("Minimum columns missing from manifest to align dataset to be aligned to, these are: ", paste(mincolm, collapse=", "))
@@ -121,6 +119,8 @@ g.align <- function(ds, manifest){
 		 return(M)
 }
 
+
+
 # This function check.tidy 
 check.tidy <- function(d){
     mincolm <- c("REF_ALT", "pid")
@@ -153,11 +153,10 @@ check.tidy <- function(d){
 }
 
 
+
 #############################
 ## DATA INPUT
 #############################
-
-
 
 # Get the range of files from args
 # This time we'll use a different strategy, involving array jobs.
@@ -170,7 +169,7 @@ ppath <- paste0("~/rds/rds-cew54-basis/02-Processed/" , file)
 
 #  run g.align to align, remove SNPs that are unalignable or not included in manifest
 input <- fread(ppath, tmpdir = "tmp")
-input <- input[, c("SNPID", "CHR38", "BP38","REF","ALT", "BETA", "SE", "P", "ALT_FREQ")]
+input <- input[, c("SNPID", "CHR38", "BP38","REF","ALT", "BETA", "SE", "P")] #"ALT_FREQ" is not in output. As we don't need that for proj.
 input[,REF_ALT:=paste(REF,ALT,sep="/")][,pid:=paste(CHR38,BP38,sep=":")]
 
 M <- g.align(input, SNP.manifest)
@@ -178,11 +177,10 @@ M <- g.align(input, SNP.manifest)
 #  run check.tidy to remove any left duplicated pid / odd REF_ALT
 M <- check.tidy(M)
 
-# write file
+# write file 
+
 rm(input)
 newname <- strsplit(file, split = "-")[[1]][1]
 
-fwrite(M, paste0("~/rds/rds-cew54-basis/Projects/Cytokine_Chemokine_Basis/basis_projection/data_40/",newname,"-ft.tsv"), sep = "\t")
+fwrite(M, paste0("~/rds/rds-cew54-basis/Projects/Cytokine_Chemokine_Basis/basis_projection/data_40_sparse/",newname,"-ft.tsv"), sep = "\t")
 cat("Done!\n")
-
- 

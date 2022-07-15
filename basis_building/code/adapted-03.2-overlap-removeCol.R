@@ -1,7 +1,9 @@
 # This is an intermediate step to keep only SNPs present in all 104 Ferkingstad traits.
 # Unnecessary columns were removed to save computing memory. Otherwise Slurm job could easily be shut down.
+# Slurm: sbatch slurm_03.2_overlap_removeCol_FK
 
-# 2022-06-20
+
+# 2022-07-10
 
 # Load libraries
 library(data.table)
@@ -24,7 +26,7 @@ gwas.DT[ , .(count = .N), by = c("pid","Trait")][ count > 1]
 
 message("remove unwantted columns~")
 
-gwas.DT[, c("CHR38","BP38","REF","ALT","Name","rsids","ImpMAF"):=NULL]
+gwas.DT[, c("CHR38","BP38","Name","ImpMAF"):=NULL] #"REF","ALT","rsids",
 
 
 # Count SNP presence and keep only SNPs that are present in all datasets
@@ -49,7 +51,7 @@ summary(gwas.DT)
 
 message("writing overlapped SNPs")
 
-fwrite(gwas.DT, "../manifest/overlap.gwas.DT.tsv.gz", sep="\t")
+fwrite(gwas.DT, "../manifest/overlap.gwas.DT.tsv.gz", sep="\t") #245890240/40 = 6147256 unique pid
 
 message("finished writing!")
 

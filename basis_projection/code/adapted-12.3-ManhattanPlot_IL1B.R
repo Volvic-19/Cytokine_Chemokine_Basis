@@ -103,7 +103,7 @@ s2$pval <- CXCL12_ah$P
 # make manhattan plot
 ids <- c("Ferkinstad_CXCL12","Ahola_CXCL12")
 
-png(filename="CXCL12.FKvsAH.manhattanplot.png", width=12, height=8, units="in", res=300)
+png(filename="../Plots/manhattan/CXCL12.FKvsAH.manhattanplot.png", width=12, height=8, units="in", res=300)
 	kp <- plotKaryotype(plot.type=4)
 	kpAddLabels(kp, labels = ids[1], srt=90, pos=3, r0=0.5, r1=1, cex=1.8, label.margin = 0.025)
 	kpAxis(kp, ymin=0, ymax=15, r0=0.5)

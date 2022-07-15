@@ -1,11 +1,12 @@
-# Preparing manifest-filtered (8M) Ferkingstad datasets prior to basis creation.
+# Preparing manifest-filtered (CCL8 8M) Ferkingstad datasets prior to basis creation.
 
-# We'll now import the 104 Ferkingstad datasets of cytokine and chemokine.
+# We'll now import the 40 Ferkingstad datasets of cytokine and chemokine.
 # We'll filter them by the initial manifest, keep relevant columns, check alignment and that all SNPs are common among all files and put them together for the next step.
 
-# Slurm: sbatch --array 1-104 slurm_01filter_FK
+# Slurm: sbatch --array 1-40 slurm_01filter_FK
 
 # 2022/07/07: previous mistake of REF_ALT is corrected here.
+# 2022/07/10: use CCL8 initial manifest, and use 40 selected FK datasets instead of all 104.
 
 # Load libraries
 library(data.table)
@@ -171,13 +172,13 @@ i <- as.numeric(args)
 
 
 # Set path and variables
-ppath <- "~/rds/rds-cew54-basis/Projects/Cytokine_Chemokine_Basis/basis_building/raw_fk_data"
+ppath <- "~/rds/rds-cew54-basis/Projects/Cytokine_Chemokine_Basis/basis_building/raw_fk_data_40"
 file <- dir(path=ppath)[i]
 
 trait <- gsub(".txt.gz","",file)
 
 # load manifest 
-manifest <- fread("../manifest/IL5_consensus_manifest_8M.tsv", tmpdir = "tmp")
+manifest <- fread("../manifest/CCL8_consensus_manifest_8M.tsv", tmpdir = "tmp")
 annotation <- fread("../manifest/assocvariants.annotated.txt.gz", tmpdir = "tmp")
 
 # process file

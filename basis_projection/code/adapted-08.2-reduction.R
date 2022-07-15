@@ -10,6 +10,9 @@
 # SNP manifest, to make them more manageable
 # prior to project them onto the Cytokine basis
 
+# 2022-07-11
+
+# sbatch --array 249-261 slurm_adapted-08.2-reduce_test
 
 
 ##############################################
@@ -22,7 +25,7 @@ setDTthreads(10)
 
 
 # Load manifest
-SNP.manifest <- fread("../../basis_building/manifest/IL5_consensus_manifest_6M_e5.tsv")
+SNP.manifest <- fread("../../basis_building/manifest/CCL8_consensus_manifest_6M_e5.tsv")
 
 ######################################################
 ###	 Load aligner functions		 #############
@@ -179,7 +182,7 @@ M <- check.tidy(M)
 rm(input)
 newname <- strsplit(file, split = "-")[[1]][1]
 
-fwrite(M, paste0("~/rds/rds-cew54-basis/Projects/Cytokine_Chemokine_Basis/basis_projection/data/",newname,"-ft.tsv"), sep = "\t")
+fwrite(M, paste0("~/rds/rds-cew54-basis/Projects/Cytokine_Chemokine_Basis/basis_projection/data_40/",newname,"-ft.tsv"), sep = "\t")
 cat("Done!\n")
 
  

@@ -1,8 +1,9 @@
-# This script is to plot the projection results of Ferkingstad(basis), Ahola and Folkersen together.
+# This script is to plot the projection results of Ferkingstad(basis-40), Ahola and Folkersen together.
 # Only selected top/bottom extreme traits are kept in plot.
 # Traits exclusive to Ferkingstad will be hidden in plots.
 
-# 2022-06-30
+# 2022-07-11
+
 library(data.table)
 library(stringr)
 library(readxl)
@@ -31,10 +32,10 @@ metadata <- fread("../google_metadata")
 # name.* files are to map Trait name with "Common_name", which was originally from the cytokine review book. After name mapping, we can plot 
 # same trait from different studies together in one plot.
 
-proj.all <- fread("../Projections/Projection_cytokine_basis_nosig_20220629.tsv")
-proj.ahola <- proj.all[grep("AholaOlli",proj.all$Trait)] # 4305 = 41 traits * 105
-proj.folkerson <- proj.all[grep("Folkersen",proj.all$Trait)] # 9450 = 90 traits * 105
-proj.basis <- fread("../Projections/Projection_cytokine_basis_nosig_basisTobasis20220629.tsv")
+proj.all <- fread("../Projections/Projection_cytokine_basis_nosig_40_20220711.tsv") #40
+proj.ahola <- proj.all[grep("AholaOlli",proj.all$Trait)] # 1681 = 41 traits * 41
+proj.folkerson <- proj.all[grep("Folkersen",proj.all$Trait)] # 3690 = 90 traits * 41
+proj.basis <- fread("../Projections/Projection_cytokine_basis_nosig_basisTobasis_40_20220711.tsv") #40
 
 
 name.ahola <- as.data.table(read_xlsx("../../Pre-work/map_dataset_names/Ahola_olli_mannual.xlsx")[,-1])
@@ -53,7 +54,7 @@ proj.ahola <- proj.ahola[, short:=str_extract(Trait, "[^_]+")][, group:="ahola"]
 
 lab <- name.basis$Common_Name
 names(lab) <- name.basis$Trait
-proj.basis <- proj.basis[, short:=lab[Trait]][, group:="fk"]
+proj.basis <- proj.basis[, short:=lab[Trait]][, group:="fk"] #40 unique traits from proj.basis
 proj.basis[,Common:=short]
 
 unique(proj.folkerson$short)
@@ -79,15 +80,20 @@ names(cyto.ahola) <- c("CTACK","EOT1","GCSF","GROA","IFNG","IL10","IL12",
 proj.folkerson <- proj.folkerson[, Common:=cyto.folkerson[short]]
 proj.ahola <- proj.ahola[, Common:=cyto.ahola[short]]
 
-proj.folkerson <- proj.folkerson[!is.na(Common)] #keep only cytokines in folkerson
-proj.ahola <- proj.ahola[!is.na(Common)][!Common %in% c("CCL4","IL-12")] #keep only cytokines in ahola (* note only CCL4 and IL-12 are not present in basis, so remove it from ahola too)
+proj.folkerson <- proj.folkerson[!is.na(Common)] #keep only cytokines in folkerson # 615= 15 traits * 41.
+proj.ahola <- proj.ahola[!is.na(Common)][!Common %in% c("CCL4","IL-12")] #1271 = 31 traits * 41. #keep only cytokines in ahola (* note only CCL4 and IL-12 are not present in 104 basis, so remove it from ahola too)
 
 
-# Check if all ahola, folkerson traits are in basis
-all(unique(proj.ahola$Common) %in% proj.basis$Common) #31 traits * 105
-#[1] TRUE
-all(unique(proj.folkerson$Common) %in% proj.basis$Common) #15 traits * 105
-#[1] TRUE
+# Check if all ahola, folkerson traits are in basis 40
+all(unique(proj.ahola$Common) %in% proj.basis$Common) #31 traits * 41
+#[1] FALSE
+all(unique(proj.folkerson$Common) %in% proj.basis$Common) #15 traits * 41
+#[1] FALSE
+
+# Keep only ahola, folkerson traits that are also in basis 40
+proj.folkerson <- proj.folkerson[Common %in% unique(proj.basis$Common)] # Folkersen left: 287 = 7 traits * 41
+proj.ahola <- proj.ahola[Common %in% unique(proj.basis$Common)] # ahola left: 492 = 12 traits * 41
+
 
 # Merged beta table
 merged.data <- .rbind.data.table(proj.basis, proj.ahola, proj.folkerson)
@@ -124,11 +130,27 @@ top.forrest <- function(n.top=10, n.bottom=10, merged.data, basis.group="fk", pc
     return(p)
 }
 
-# make plots for PC1, 2, 3, 4, 5
-top.forrest(15,15,merged.data,"fk",1,rm.non.overlap = TRUE)
-top.forrest(15,15,merged.data,"fk",2,rm.non.overlap = TRUE)
-top.forrest(15,15,merged.data,"fk",3,rm.non.overlap = TRUE)
-top.forrest(15,15,merged.data,"fk",4,rm.non.overlap = TRUE)
-top.forrest(15,15,merged.data,"fk",5,rm.non.overlap = TRUE)
+# make plots for PC 1-20
 
-ggsave("../Plots/top_bot/rmPC1.png", width = 4, height = 4)
+for (i in 1:20){
+    p <- top.forrest(15, 15, merged.data, "fk", i , rm.non.overlap = TRUE)
+    ggsave(filename = paste0("../Plots/top_bot_40/rmPC",i,".png"), plot = p,width = 4, height = 4)
+}
+
+# make plots for PC 21-41
+
+for (i in 21:41){
+    p <- top.forrest(15, 15, merged.data, "fk", i , rm.non.overlap = TRUE)
+    ggsave(filename = paste0("../Plots/top_bot_40/rmPC",i,".png"), plot = p,width = 4, height = 4)
+}
+
+
+
+
+#top.forrest(15,15,merged.data,"fk",1,rm.non.overlap = TRUE)
+#top.forrest(15,15,merged.data,"fk",2,rm.non.overlap = TRUE)
+#top.forrest(15,15,merged.data,"fk",3,rm.non.overlap = TRUE)
+#top.forrest(15,15,merged.data,"fk",4,rm.non.overlap = TRUE)
+#top.forrest(15,15,merged.data,"fk",5,rm.non.overlap = TRUE)
+
+#ggsave("../Plots/top_bot_40/rmPC1.png", width = 4, height = 4)

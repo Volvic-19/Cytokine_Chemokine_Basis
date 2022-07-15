@@ -3,23 +3,25 @@
 library(data.table)
 setDTthreads(18)
 
+# 2022-07-11
+
 #########################################################
 
 
 # Update manifest
 
-SNP.manifest <- fread("../manifest/IL5_consensus_manifest_6M.tsv", tmpdir = "tmp")
+SNP.manifest <- fread("../manifest/CCL8_consensus_manifest_6M.tsv", tmpdir = "tmp")
 e5.DT <- fread("../manifest/shrinkage.e5.DT.tsv.gz", tmpdir = "tmp")
 
 dim(SNP.manifest)
-# [1] 6161058       9
+# [1] 6147256       8
 
 SNP.manifest <- SNP.manifest[pid %in% unique(e5.DT$pid)]
 
 dim(SNP.manifest)
-# [1] 673318      9
+# [1] 641079      8
 
-fwrite(SNP.manifest, "../manifest/IL5_consensus_manifest_6M_e5.tsv", sep="\t")
+fwrite(SNP.manifest, "../manifest/CCL8_consensus_manifest_6M_e5.tsv", sep="\t")
 
 
 

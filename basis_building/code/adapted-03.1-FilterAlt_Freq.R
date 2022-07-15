@@ -1,10 +1,12 @@
 # This script is an intermediate step. It filters out ALT_FREQ < 1% or >99% to help size down gwas.DT.tsv.gz 
+# Slurm: sbatch slurm_03.1_filterAlt_FREQ_FK
 
-# 2022-06-20
+
+# 2022-07-10
 
 # Load libraries
 library(data.table)
-setDTthreads(15)
+setDTthreads(10)
 
 
 

@@ -3,6 +3,7 @@
 
 # Before running projection, we need to prepare Rdata to avoid repeated computing of : basis, 
 
+# 2022-07-11
 
 library(data.table)
 library(Matrix)
@@ -10,14 +11,14 @@ library(magrittr)
 
 setDTthreads(10)
 
-# 673,318 unique SNPs
+# 641,079 unique SNPs
 
 
 ##############################################
 ### LOAD Rdata and run projection
 ##############################################
 
-load("../Rdata/cytokine_completeSNP.Rdata")
+load("../Rdata/cytokine_completeSNP_40.Rdata")
 
 # Create log file
 mpath <- "~/rds/rds-cew54-basis/Projects/Cytokine_Chemokine_Basis/basis_projection/code/log/"
@@ -26,7 +27,7 @@ logname <- paste0(mpath,"log_project_",date,".txt")
 file.create(logname)
 
 # Files to project
-files_to_project  <- dir("../data", pattern = ".tsv") #261 datasets to project
+files_to_project  <- dir("../data_40", pattern = ".tsv") #261 datasets to project
 nfiles <- length(files_to_project)
 Trait <- rep(NA,nfiles)
 nSNP <- rep(NA, nfiles)
@@ -37,7 +38,7 @@ projected.table <- lapply(files_to_project, function(file){
 	message("Projecting ", file)
 	trait_label <- strsplit(file, "-", fixed = TRUE)[[1]][1] #trait name
 	index <- which(files_to_project == file) 
-	sm <- fread(paste0("../data/",file))
+	sm <- fread(paste0("../data_40/",file)) #data_40
 
 	# Some checks
 	sm <- unique(sm)
@@ -77,7 +78,7 @@ projected.table <- lapply(files_to_project, function(file){
 	}
 	projected.userdata
 }
-) 
+) #current
 
 projected.table[sapply(projected.table, is.null)]  <- NULL 
 projected.table <- rbindlist(projected.table)
@@ -85,8 +86,8 @@ projected.table  <- projected.table[,.(PC, Delta,Trait)]
 
 QC.table <- data.table(Trait, nSNP)
 
-projtablename  <- paste0("Projection_cytokine_basis_nosig_", date, ".tsv")
-qctablename  <- paste0("QC_cytokine_basis_nosig_", date, ".tsv")
+projtablename  <- paste0("Projection_cytokine_basis_nosig_40_", date, ".tsv") # add 40_
+qctablename  <- paste0("QC_cytokine_basis_nosig_40_", date, ".tsv") # add 40_
 
 #while(projtablename %in% dir(paste0(mpath, "cell_basis_v3_varimax/Projections"))){
 #  version  <- version + 1
@@ -100,3 +101,4 @@ write.table(projected.table, paste0("../Projections/", projtablename), sep = "\t
 write.table(QC.table, paste0("../Projections/", qctablename), sep = "\t", quote = FALSE, row.names = FALSE)
 
 message("Finished writing!")
+

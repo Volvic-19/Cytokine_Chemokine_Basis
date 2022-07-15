@@ -1,6 +1,8 @@
 # Compute shrinkage 
 
-# 2022-06-20
+# 2022-07-11
+
+# Slurm: sbatch slurm_03.3_compute_shrinkage_FK
 
 # Load libraries
 library(data.table)
@@ -87,7 +89,7 @@ logsum <- function(x) {
 
 
 #########################################################
-gwas.DT <- fread("../manifest/overlap.gwas.DT.tsv.gz", showProgress = TRUE, tmpdir = "tmp")# 25 GB
+gwas.DT <- fread("../manifest/overlap.gwas.DT.tsv.gz", showProgress = TRUE, tmpdir = "tmp")# 9.5 GB
 
 #########################################################
 ###### Load file and apply shrinkage    #################
