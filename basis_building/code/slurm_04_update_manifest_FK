@@ -3,7 +3,7 @@
 #SBATCH -A CWALLACE-SL2-CPU
 #SBATCH --nodes 1
 #SBATCH --ntasks 18
-#SBATCH --time 02:30:00
+#SBATCH --time 00:40:00
 #SBATCH --mail-type FAIL
 #SBATCH -p skylake-himem
 #SBATCH --output=./err/%A.err
