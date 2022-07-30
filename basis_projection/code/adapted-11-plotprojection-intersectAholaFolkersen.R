@@ -24,6 +24,16 @@ metadata <- data.table(metadata)
 
 fwrite(metadata, "../google_metadata", sep = "\t", na = NA)
 
+# Full version of metadata
+metadata <- read_sheet("https://docs.google.com/spreadsheets/d/16B4ANehcS4psdAFReTBQUJLYXuf5_RrpmjSPaASa2Nw/edit?usp=sharing", sheet = 1)
+#metadata <- metadata[,c("File_ID", "First_Author", "Year", "Reference","Trait_ID_2.0", "Trait_long")]
+metadata <- metadata[!is.na(metadata$File_ID),]
+metadata$Trait <- sapply(strsplit(metadata$File_ID,"-"),`[`, 1)
+metadata <- data.table(metadata)
+
+fwrite(metadata, "../google_metadata_full", sep = "\t", na = NA)
+
+
 # read google_metadata
 metadata <- fread("../google_metadata")
 
@@ -148,9 +158,3 @@ for (i in 21:41){
 
 
 #top.forrest(15,15,merged.data,"fk",1,rm.non.overlap = TRUE)
-#top.forrest(15,15,merged.data,"fk",2,rm.non.overlap = TRUE)
-#top.forrest(15,15,merged.data,"fk",3,rm.non.overlap = TRUE)
-#top.forrest(15,15,merged.data,"fk",4,rm.non.overlap = TRUE)
-#top.forrest(15,15,merged.data,"fk",5,rm.non.overlap = TRUE)
-
-#ggsave("../Plots/top_bot_40/rmPC1.png", width = 4, height = 4)

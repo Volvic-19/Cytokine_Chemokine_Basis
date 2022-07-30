@@ -4,13 +4,11 @@
 # Traits exclusive to Ferkingstad will be hidden in plot 1.
 
 # 2022-07-14
+# 2022-07-19: make new plots, although they are supposed to be the same as old ones, as ci did not get changed 
 
 # This script is to plot the projection results of Ferkingstad(basis 40) together with IMD.
 # Only selected top/bottom extreme traits are kept in plot.
 # Traits exclusive to Ferkingstad will be hidden in plots.
-
-# 2022-07-07
-# 2022-07-11
 
 library(data.table)
 library(stringr)
@@ -25,8 +23,8 @@ metadata <- fread("../google_metadata")
 # Load projection tables and name mapping tables.
 # proj.* files are projection results.
 # name.* files are to map Trait name with "Common_name", which was originally from the cytokine review book. After name mapping, we can plot 
-proj.all <- fread("../Projections/Projection_cytokine_basis_sig_40sparse_20220714.tsv") #40 sparse
-proj.basis <- fread("../Projections/Projection_cytokine_basis_sig_40sparse_basisTObasis20220714.tsv") #40 sparse
+proj.all <- fread("../Projections/Projection_cytokine_basis_sig_40sparse_20220719.tsv") #40 sparse
+proj.basis <- fread("../Projections/Projection_cytokine_basis_sig_40sparse_basisTObasis20220719.tsv") #40 sparse
 
 name.basis <- as.data.table(read_xlsx("../../Pre-work/map_dataset_names/Ferkingstad_mapped_basis.xlsx")[,-1])[Remark!="annotation added"]
 name.basis <- name.basis[,c("FileName","Common_Name")][,Trait:=gsub(".txt.gz","",FileName)]
@@ -105,46 +103,13 @@ top.imd.forrest <- function(n.top=10, n.bottom=10, merged.data, basis.group="fk"
     return(p)
 }
 
-# CXCL9 and CXCL10 with imd traits
-CXCL9_10.imd.forrest <- function(merged.data, pc=1){
-    #keep only selected PC
-    merged.data <- merged.data[PC==paste0("PC",pc)]
-
-    #keep only "CXCL9/10" and imd traits in merged.data
-    imd.traits <- merged.data[group == "imd"]$short
-
-    merged.data <- merged.data[short %in% c("CXCL9","CXCL10", imd.traits)]
-
-    fix.order <- unique(merged.data$short[order(merged.data$Delta, decreasing = FALSE)])
-    merged.data$short <- factor(merged.data$short, levels = fix.order)
-
-    p <- ggplot(merged.data, mapping = aes(x=short, y=Delta, color=group))+
-    geom_point()+
-    coord_flip()+
-    geom_hline(yintercept = 0, col="yellow", lty=2)+
-    xlab(paste("CXCL9, CXCL10 traits + imd"))+
-    labs(title = paste0("PC",pc))+
-    theme_light()
-
-    return(p)
-}
-
 # make plots for PC 1~20
 for (i in 1:40){
     top.imd.forrest(merged.data=merged.data,pc=i)
     ggsave(paste0("../Plots/imd_40_sparse/top_PC",i,".png"), width = 6, height = 6) #imd_40
 }
 
-# make plots of CXCL9/10 for PC 1~20
 
-for (i in 1:20){ #1:10
-    CXCL9_10.imd.forrest(merged.data=merged.data,pc=i)
-    ggsave(paste0("../Plots/imd_40/CXCL9_10_PC",i,".png"), width = 6, height = 6)
-}
-
-#top.imd.forrest(merged.data=merged.data,pc=5)
-
-#CXCL9_10.imd.forrest(merged.data = merged.data,pc=1)
 
 # MS is "multiple sclerosis"
 # IGAN is "IgA nephropathy"

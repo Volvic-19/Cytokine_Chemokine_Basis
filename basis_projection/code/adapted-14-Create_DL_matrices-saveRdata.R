@@ -6,6 +6,7 @@
 ## obtain from LD matrices. To generate those, we'll prepare LD matrices using 1000GP Phase III data on our 5510 non-zero SNPs.
 
 # 2022-07-13
+# 2022-07-19: spot a mistake in project_sparse, need to change df from 14 to 40. The number of PCs. No need to rerun reduction, but need to rerun projection. 
 
 # https://genomicsbootcamp.github.io/book/genotype-files-in-practice.html#fam-file---info-on-individuals
 # Read above link for introductions to .bim, .fam files
@@ -21,7 +22,6 @@ library(annotSnpStats)
 #devtools::install_github("chr1swallace/annotSnpStats") 
 library(magrittr)
 library(snpStats)
-
 
 #############################################
 ######## Helper functions   #################
@@ -139,6 +139,7 @@ project_sparse <- function (beta, seb, pids) {
         warning("more than 5% sparse basis snps missing")
     b <- beta * shrinkage[pids] - beta.centers[pids]
     proj <- b %*% rot.pca[pids, ]
+    # ATTENTION: Before running this function, remove Inf/-Inf from beta and SE!!
     # ATTENTION: seb needs to be NA free! otherwise will introduce NA into the matrix computation
     v <- seb * shrinkage[pids] * rot.pca[pids, ] # v is not variance, it is an intermediate term, like a projection of seb, parallel to b and proj
     var.proj <- t(v) %*% LD[pids, pids] %*% v # why NA?
@@ -147,7 +148,7 @@ project_sparse <- function (beta, seb, pids) {
     chi2 <- (t(delta) %*% solve(var.proj) %*% delta)[1, 1]
     ret <- data.table::data.table(PC = colnames(proj), proj = proj[1, 
         ], var.proj = Matrix::diag(var.proj), delta = delta, 
-        p.overall = stats::pchisq(chi2, df = 14, lower.tail = FALSE)) # NOTE: remember to update df as number of PCs!
+        p.overall = stats::pchisq(chi2, df = 40, lower.tail = FALSE)) # NOTE: remember to update df as number of PCs!
     ret$z = ret$delta/sqrt(ret$var.proj)
     ret$p = stats::pnorm(abs(ret$z), lower.tail = FALSE) * 2
     copy(ret)
@@ -174,8 +175,8 @@ README <- c(rot.pca = "sparse rotation matrix (5519 * 40)",
             shrinkage = "vector of w/sigma_maf at sparse basis snps (5519)",
             LD = "matrix of genotype correlations in 1000 Genomes EUR at sparse basis snps (5519 * 5519)",
             SNP.manifest = "data.table of sparse basis snps (5519 * 8)",
-            stats = "info on the threshold quantile and number of SNPs per PC in the sparse basis (40 * 3)"
-            project_sparse="function to project new beta + seb into sparse basis")
+            stats = "info on the threshold quantile and number of SNPs per PC in the sparse basis (40 * 3)",
+            project_sparse="function to project new beta + seb into sparse basis, df=40")
 
 
 save(rot.pca,use.pca,beta.centers,shrinkage,LD,SNP.manifest,

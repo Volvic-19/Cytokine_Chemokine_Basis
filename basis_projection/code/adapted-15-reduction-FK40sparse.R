@@ -5,7 +5,7 @@
 # This script [does not require] "ALT_FREQ" in input data. (And we don't need ALT_FREQ in our projection)
 
 # Introduction: This code is meant to pre-process our big files 
-#(located at 02-Liftovered/), filtering them by the SNPs in the 
+#(located at 02-Processed/), filtering them by the SNPs in the 
 # SNP manifest, to make them more manageable prior to project them onto the Cytokine basis
 
 # sbatch --array 1-261 slurm_adapted-15-reduce

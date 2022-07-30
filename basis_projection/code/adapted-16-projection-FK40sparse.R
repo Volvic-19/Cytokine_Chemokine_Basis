@@ -2,6 +2,9 @@
 # our Ferkingstad basis (sparse, PC1-40) for a complete projection.  Significance is computed here.
 
 # 2022-07-14
+# 2022-07-19: rerun projection , as we updated project_sparse function;
+# 2022-07-19: after projection, change the write.table of QC table, from ("1e-05" to "actual number"), as despite
+#              convenience in reading, we need accurate overall.p for FDR computation.
 
 library(data.table)
 library(Matrix)
@@ -13,7 +16,7 @@ setDTthreads(10)
 
 
 ##############################################
-### LOAD sparse Rdata and run projection
+###  projection of 1-261
 ##############################################
 
 load("../Rdata/cytokine_sparseSNP_40basis-LD-ProjFun.RData")
@@ -61,7 +64,7 @@ projected.table <- lapply(files_to_project, function(file){
 	Trait[index] <<- trait_label
 	nSNP[index] <<- nrow(sm)
 
-  	projected.userdata <- tryCatch(expr = project_sparse(beta=sm$BETA, seb=sm$SE, pids=sm$pid)[,trait:=trait_label][], #project_nosig
+  	projected.userdata <- tryCatch(expr = project_sparse(beta=sm$BETA, seb=sm$SE, pids=sm$pid)[,trait:=trait_label][], #project
   	                      error =function(e) {
 				      failmessage <- "Projection for this file had non-zero exit status, please check. Jumping to next file..."
 				      message(failmessage)
@@ -75,7 +78,7 @@ projected.table <- lapply(files_to_project, function(file){
   	setcolorder(projected.userdata, c("PC", "Var.Delta", "Delta", "p.overall", "z", "P", "Trait"))
 
   	# More QC
-  	overall_p[index] <<- sprintf("%1.0e",projected.userdata$p.overall[1])
+  	overall_p[index] <<- projected.userdata$p.overall[1] # sprintf("%1.0e",projected.userdata$p.overall[1])
   	minc.idx <- which.min(projected.userdata$P)
   	mscomp[index] <<- sprintf("%s (%1.0e)",projected.userdata$PC[minc.idx],projected.userdata$P[minc.idx])
 	}
@@ -166,7 +169,7 @@ projected.table <- lapply(lists_to_project, function(file){
   	setcolorder(projected.userdata, c("PC", "Var.Delta", "Delta", "p.overall", "z", "P", "Trait"))
 
   	# More QC
-  	overall_p[current.trait] <<- sprintf("%1.0e",projected.userdata$p.overall[1])
+  	overall_p[current.trait] <<- projected.userdata$p.overall[1] # sprintf("%1.0e",projected.userdata$p.overall[1])
   	minc.idx <- which.min(projected.userdata$P)
   	mscomp[current.trait] <<- sprintf("%s (%1.0e)",projected.userdata$PC[minc.idx],projected.userdata$P[minc.idx])
 
