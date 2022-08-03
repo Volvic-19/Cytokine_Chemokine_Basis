@@ -76,7 +76,7 @@
 		
 		6. Novel: IL-16 , & coeliac disease; CCL21 & gout; CCL21 & hypothyroidism
 		
-		# PC10
+# PC10
 		1. CCL21 & T1D, & celiac disease (introduced in PC9)
 		2. CCL21 & vitiligo:
 		(The abundance of TGFB1 and CCL21 mRNA was significantly decreased in the peripheral blood of patients with aGV (active generalized vitiligo).
@@ -87,9 +87,9 @@
 		
 		
 		
-		# Appendix
-		1. github
-		2. 40 PC plots
+# Appendix
+1. github
+2. 40 PC plots
 		
 		
 		
