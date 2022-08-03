@@ -84,7 +84,7 @@ https://www.jimmunol.org/content/173/8/4791.short
 
 
 
-2. MSP : inhibit inflammatory cycle; while not covered by Ahola....
+2.不要提，或者最后提。因为在9，10是相反的。 MSP : inhibit inflammatory cycle; while not covered by Ahola....
 (MSP exhibits anti-inflammatory properties on macrophage)
 (MSP markedly inhibited expression of inflammatory cytokines (IL-1β, TNF-α and IL-18),
 chemokines (MIP-1, MCP-1 and RANTES) and iNOS, NO, COX-2 and PGE2 in RASF stimulated by LPS.)
