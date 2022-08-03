@@ -3,8 +3,45 @@
 (CXCL6 was found to be overexpression in DN patients and DN rat model. )
 https://www.frontiersin.org/articles/10.3389/fphar.2019.00224/full
  
- 6. Novel: (unfinished) CXCL6 & Celiac disease; CXCL6 & Vitiligo; CXCL6 & Autoimmune thyroid disease
+2. CXCL12 & T1D
+(Elevated CXCL12 expression in the bone marrow of NOD mice is associated with altered T cell and stem cell trafficking and diabetes development
+ In non-obese diabetic (NOD) mice, which are predisposed to develop the disease, reduction of CXCL12 level leads to significant delays in the onset of diabetes. Despite these initial observations, however, how CXCL12 affects development of TID has not been fully investigated.)
+https://bmcimmunol.biomedcentral.com/articles/10.1186/1471-2172-9-51
+ 
+ 3. CXCL1 & T1D
+(Serum CXCL1 concentrations are elevated in type 1 diabetes mellitus, possibly reflecting activity of anti‐islet autoimmune activity)
+https://onlinelibrary.wiley.com/doi/full/10.1002/dmrr.1257
+ 
+(Circulating levels of CXCL1 were increased significantly in adult type 1 diabetes )
+ https://journals.physiology.org/doi/full/10.1152/ajpendo.00659.2013
+ 
+ 4. CXCL12 & Vitiligo 
+ (Misbalanced CXCL12 and CCL5 chemotactic signals in vitiligo onset and progression)
+ https://www.sciencedirect.com/science/article/pii/S0022202X17300507
+ 
+ (Our results suggest that vitiligo might be associated with increased serum levels of CXCL10 and CXCL12. There is a positive relationship 
+to disease activity, indicating that CXCL10 and CXCL12 may play a significant role in the pathogenesis of vitiligo.)
+ https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8675339/
+ 
+ 5. CXCL6 & Crohn's 
+ (CXCR1-binding chemokines in inflammatory bowel diseases: down-regulated IL-8/CXCL8 production by leukocytes in Crohn's disease and selective GCP-2/CXCL6 expression in inflamed intestinal tissue)
+ https://pubmed.ncbi.nlm.nih.gov/15214047/
+ 
+ 6. CXCL1 & systematic lupus eryth
+(we demonstrate that serum CXCL1 levels were significantly higher in patients with)
+(SLE patients exhibited significant increases in serum CXCL1 concentrations )
+https://link.springer.com/article/10.1186/s12865-021-00469-x
 
+(Moreover, authors have reported higher levels of CCL2 in both serum and urine of SLE patients compared with controls [14]. Table 1 shows the impact of CCL2 in the development of SLE.)
+https://www.sciencedirect.com/science/article/pii/S104346662100226X
+
+7. CXCL12 & sarcoidosis
+(Our major finding is the significant increase in CXCL12α in sarcoidosis’ patients in comparison with IPF)
+ https://www.hindawi.com/journals/jir/2009/537929/
+ 
+ 
+ 8. Novel: (unfinished) CXCL6 & Celiac disease; CXCL6 & Vitiligo; CXCL6 & Autoimmune thyroid disease
+(potential protective) CCL8 & diseases
  
  
  # PC9		
@@ -89,7 +126,7 @@ and this protection required the activity of the chemokine CCL4.)
 (We show that IL-16 potentiates insulitis and type 1 diabetes in NOD mice, and that anti-IL-16 antibody therapy protects against type 1
 diabetes even when administered at the mid-late stages of disease progression. )
 
-6. Novel: IL-16 , & coeliac disease; CCL21 & gout; CCL21 & hypothyroidism
+6. Novel: IL-16  & coeliac disease; CCL21 & gout; CCL21 & hypothyroidism
 
 # PC10
 1. CCL21 & T1D, & celiac disease (introduced in PC9)
