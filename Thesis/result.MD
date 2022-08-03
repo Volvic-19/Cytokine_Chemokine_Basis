@@ -30,6 +30,12 @@ Joint CCL21 is directly implicated in RA angiogenesis.)
 
 CCL21 & RA: reported, but CCL21 & JRA, not yet in JRA
 our finding indicate a potentially more specific role in JRA.
+(CCL21, as a chemokine, appears to be involved in the recruitment and survival of lymphocytes and establishment of ectopic lymphoid structures in the target organs of autoimmune diseases [17]. Martin et al. [18] indicated that CCL21 is sufficient to drive lymphocyte recruitment to the thyroid. They also suggested that CCL21 is involved in autoimmune thyroid disease (AITD) pathogenesis by establishing TGCCL21 transgenic mice as a novel model to study the formation and function of lymphoid follicles in the thyroid. The CCL21 gene is located on chromosome 9p13.3, which is a susceptibility locus for RA. The CCL21 gene has also been shown to be involved in autoimmune disease in animal models and influence transcription and protein expression in patients with rheumatoid synovitis, in addition to being associated with the susceptibility, progression, and severity of various autoimmune diseases [19].)
+https://link.springer.com/article/10.1007/s00296-017-3784-4
+
+(Lymphocytic infiltrates and lymphoid follicles with germinal centers are often detected in autoimmune thyroid disease (AITD), but the mechanisms underlying lymphocyte entry and organization in the thyroid remain unknown. We tested the hypothesis that CCL21, a chemokine that regulates homeostatic lymphocyte trafficking, and whose expression has been detected in AITD, is involved in the migration of lymphocytes to the thyroid. We show that transgenic mice expressing CCL21 from the thyroglobulin promoter (TGCCL21 mice) have significant lymphocytic infiltrates, which are topologically segregated into B and T cell areas. Although high endothelial venules expressing peripheral lymph node addressin were frequently observed in the thyroid tissue, lymphocyte recruitment was independent of L-selectin or lymphotoxin-α but required CCR7 expression. Taken together, these results indicate that CCL21 is sufficient to drive lymphocyte recruitment to the thyroid, suggest that CCL21 is involved in AITD pathogenesis, and establish TGCCL21 transgenic mice as a novel model to study the formation and function of lymphoid follicles in the thyroid.)
+https://www.jimmunol.org/content/173/8/4791.short
+
 
 
 2. MSP : inhibit inflammatory cycle; while not covered by Ahola....
@@ -82,6 +88,18 @@ diabetes even when administered at the mid-late stages of disease progression. )
 (The abundance of TGFB1 and CCL21 mRNA was significantly decreased in the peripheral blood of patients with aGV (active generalized vitiligo).
 Significant differences in forkhead box P3, transforming growth factor-β and CCL21 protein expression were found in skin sections.)
 https://onlinelibrary.wiley.com/doi/full/10.1111/bjd.13511
+3. CCL21 & autoimmune thyroid disease
+(They also suggested that CCL21 is involved in autoimmune thyroid disease)
+(Martin et al. [18] indicated that CCL21 is sufficient to drive lymphocyte recruitment to the thyroid. They also suggested that CCL21 is involved in autoimmune thyroid disease (AITD) pathogenesis by establishing TGCCL21 transgenic mice as a novel model to study the formation and function of lymphoid follicles in the thyroid. The CCL21 gene is located on chromosome 9p13.3, which is a susceptibility locus for RA.)
+https://link.springer.com/article/10.1007/s00296-017-3784-4
+（CCL21 induces thyroid lymphocyte recruitment through CCR7）
+（These findings indicate that CCR7 is the main chemokine receptor mediating CCL21-induced lymphocyte recruitment into the thyroid.）
+（In summary, we have shown that CCL21, a chemokine expressed in AITD, is sufficient to drive naive T and B cell recruitment into the thyroid. This process is mediated by CCR7 and results in accumulation and topological arrangement of lymphocytes within the thyroid. ）
+https://www.jimmunol.org/content/173/8/4791.short
+
+
+
+
 
 6. Novel: CCL21 & psoriasis;
 
