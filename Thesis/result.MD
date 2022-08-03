@@ -1,3 +1,12 @@
+ # PC7
+1.CXCL6 & T1D (PC7, PC10都有)
+(CXCL6 was found to be overexpression in DN patients and DN rat model. )
+https://www.frontiersin.org/articles/10.3389/fphar.2019.00224/full
+ 
+ 6. Novel: (unfinished) CXCL6 & Celiac disease; CXCL6 & Vitiligo; CXCL6 & Autoimmune thyroid disease
+
+ 
+ 
  # PC9		
 	
 1. CCL21: RA and JRA, something in common. JRA could last to adult. But JRA : more heterogenous, there is genetic risk different from adult-onset RA.
@@ -96,12 +105,18 @@ https://link.springer.com/article/10.1007/s00296-017-3784-4
 （These findings indicate that CCR7 is the main chemokine receptor mediating CCL21-induced lymphocyte recruitment into the thyroid.）
 （In summary, we have shown that CCL21, a chemokine expressed in AITD, is sufficient to drive naive T and B cell recruitment into the thyroid. This process is mediated by CCR7 and results in accumulation and topological arrangement of lymphocytes within the thyroid. ）
 https://www.jimmunol.org/content/173/8/4791.short
+4. CXCL6 & T1D (PC7, PC10都有)
+(CXCL6 was found to be overexpression in DN patients and DN rat model. )
+https://www.frontiersin.org/articles/10.3389/fphar.2019.00224/full
+5. CXCL6 & psoriasis (PC10)
+（Neutrophils are reportedly attracted to the skin by a number of chemotactic factors, including IL8/CXCL8 and gro/MGSA/CXCL1.41, 42 We have shown that these, along with CXCL3, CXCL5 and CXCL6, are produced by keratinocytes in response to IL-17, are present in psoriatic lesions, and the receptors for these chemokines are on skin-infiltrating neutrophils.）
+https://onlinelibrary.wiley.com/doi/full/10.1111/j.1365-2133.2008.08769.x
+IL-17 as potential upstream regulator of CXCL6 in pathogenesis of psoriasis
+(IL-17A acts on keratinocytes to increase expression of chemokines (e.g. CCL20, CXCL1, CXCL3, CXCL5, CXCL6 and CXCL8) involved in recruiting myeloid dendritic cells, Th17 cells and neutrophils to the lesion site. )
+https://onlinelibrary.wiley.com/doi/full/10.1111/j.1365-2133.2012.11099.x
 
 
-
-
-
-6. Novel: CCL21 & psoriasis;
+6. Novel: CCL21 & psoriasis; CCL21 & Hypothyroidism; CXCL6 & Celiac disease; CXCL6 & Vitiligo; CXCL6 & Autoimmune thyroid disease
 
 
 
