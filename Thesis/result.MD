@@ -53,6 +53,7 @@ regulators of CCL19 and CCL21 in RA fibroblasts and in vitro–differentiated RA
 a novel role of CCL19/CCL21 in angiogenesis in RA.
 
 JRA and RA share some common and different genetic background. similar and difference in genetic risk factor
+
 (JRA, like RA, also has associations with HLA. However the different clinical subtypes of JRA themselves differ in their HLA associations.
 For instance, the class I gene HLA-B27 has consistently been found to contribute risk for pauciarticular JRA, especially among older males.
 HLA-DR1 and -DR4, class II genes, have been reported to increase the risk for polyarticular JRA. Much as in adults with RA, HLA-DR4 is
@@ -103,7 +104,7 @@ vessels to induce the functional changes of lymphatic endothelial cells during i
 the increased number of cytoplasmic protrusions and vesicles, whereas 5′-Nase activity of lymphatics seemed to become decreased.
 The expression of CCL21 protein also showed an age-dependent increase in NOD pancreas, even though it was undetectable in normal controls.)
 
-4. CCL21 & coeliac disease: CCL21 expression in active coeliac patients, but not inactive / healthy
+4. CCL21 & coeliac disease: CCL21 expression in active coeliac patients, but not inactive / healthy 也可以用作合理的解释？
 (Chemokines are small proteins that promote leukocyte migration during development, infection, and inflammation.
 We and others isolated the unique chemokine CCL21, a potent chemo-attractant for naïve T-cells, naïve B-cells,
 and immature dendritic cells. CCL21 has a 37 amino acid carboxy terminal extension that is distinct from the rest
