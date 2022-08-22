@@ -44,6 +44,57 @@ overall_p <- rep(NA, nfiles)
 mscomp <- rep(NA,nfiles)
 
 
+# ############## test projection of "ANS_Cortes_23749187_1-ft.tsv"#############
+# file <- "ANS_Cortes_23749187_1-ft.tsv" #237 SNPs
+# file <- "MDD_Wray_29700475_2-ft.tsv" #6 SNPs
+# file <- "PEMFOL_Augusto_33991537_1-ft.tsv" #185 SNPs
+# file <- "T2D_Gaulton_26551672_1-ft.tsv" #56 SNPs
+# file <- "O15_BREAST_LACT_OTHER_DIS_FinnGen_FinnGenR5_1-ft.tsv" #222 SNPs, but works in project_sparse
+
+# trait_label <- strsplit(file, "-", fixed = TRUE)[[1]][1] #trait name
+# sm <- fread(paste0("../data_40_sparse_allcollection10541/",file)) #data_40_sparse_allcollection10541
+
+# 	sm <- unique(sm)
+# 	sm[sm == ""] <- NA # Some missing data might pass as empty string. This will fix that	
+# 	sm <- na.omit(sm, cols = c("pid", "BETA", "SE", "P")) # 
+# 	dups <- sm$pid[duplicated(sm$pid)]
+# 	sm <- sm[!BETA %in% c(Inf, -Inf)][!SE %in% c(Inf, -Inf)]
+
+
+# x <- project_sparse(beta=sm$BETA, seb=sm$SE, pids=sm$pid)[,trait:=trait_label]
+
+# beta=sm$BETA
+# seb=sm$SE
+# pids=sm$pid
+
+# project_sparse <- function (beta=sm$BETA, seb=sm$SE, pids=sm$pid) {
+#     if (length(beta) != length(seb) || length(beta) != length(pids) || 
+#         !length(beta)) 
+#         stop("arguments must be equal length vectors > 0")
+#     if (!all(pids %in% SNP.manifest$pid)) 
+#         stop("all pids must be members of sparse basis (SNP.manifest$pid)")
+#     if (length(pids) < 0.95 * nrow(rot.pca)) 
+#         warning("more than 5% sparse basis snps missing")
+#     b <- beta * shrinkage[pids] - beta.centers[pids]
+#     proj <- b %*% rot.pca[pids, ]
+#     # ATTENTION: Before running this function, remove Inf/-Inf from beta and SE!!
+#     # ATTENTION: seb needs to be NA free! otherwise will introduce NA into the matrix computation
+#     v <- seb * shrinkage[pids] * rot.pca[pids, ] # v is not variance, it is an intermediate term, like a projection of seb, parallel to b and proj
+#     var.proj <- t(v) %*% LD[pids, pids] %*% v # why NA?
+#     ctl <- (-beta.centers[pids]) %*% rot.pca[pids, ]
+#     delta <- (proj - ctl)[1, ]
+#     chi2 <- (t(delta) %*% solve(var.proj) %*% delta)[1, 1]
+#     ret <- data.table::data.table(PC = colnames(proj), proj = proj[1, 
+#         ], var.proj = Matrix::diag(var.proj), delta = delta, 
+#         p.overall = stats::pchisq(chi2, df = 40, lower.tail = FALSE)) # NOTE: remember to update df as number of PCs!
+#     ret$z = ret$delta/sqrt(ret$var.proj)
+#     ret$p = stats::pnorm(abs(ret$z), lower.tail = FALSE) * 2
+#     copy(ret)
+# }
+
+
+
+
 ###############################################
 # Projection of 1-10541 external traits		#	
 ##############################################
@@ -312,9 +363,13 @@ pheatmap(M.sig, breaks = seq(-range, range, length.out = 100), cluster_cols = FA
 plot.PT <- PT.sigviz[Trait_class=="IMD"]
 plot.QC <- QC.sigviz[Trait_class=="IMD"]
 
-png(file="../Plots/imd_40_sparseAll10541/pheatmap_IMD.png", width = 1000, height = 1300)
-pheamap.plot(PT.sigviz = plot.PT, QC.sigviz = plot.QC)
-dev.off()
+#png(file="../Plots/imd_40_sparseAll10541/pheatmap_IMD.png", width = 10, height = 15)
+#pheamap.plot(PT.sigviz = plot.PT, QC.sigviz = plot.QC)
+#dev.off()
+
+IMDheat <- pheamap.plot(PT.sigviz = plot.PT, QC.sigviz = plot.QC)
+ggsave("../Plots/imd_40_sparseAll10541/pheatmap_IMD.png",IMDheat, width=13, height = 15)
+
 
 # make pheamap  : cytochemos
 plot.PT <- PT.sigviz[isCyto==TRUE]
@@ -337,6 +392,11 @@ dev.off()
 # make pheamap  : no Reales, only showing cyto/chemokines used in basis
 plot.PT <- PT.sigviz[isCyto==TRUE][First_Author!="Reales"][usedinBasis==TRUE]
 plot.QC <- QC.sigviz[isCyto==TRUE][First_Author!="Reales"][usedinBasis==TRUE]
+
+        # save plotdata
+fwrite(plot.PT, file="../plotdata/cytoinBasis_PT", sep = "\t", na = NA)
+fwrite(plot.QC, file="../plotdata/cytoinBasis_QC", sep = "\t", na = NA)
+
 
 png(file="../Plots/imd_40_sparseAll10541/pheatmap_CYTO_noReales_omi_onlybasis.png", width = 1000, height = 600)
 pheamap.plot(PT.sigviz = plot.PT, QC.sigviz = plot.QC)
@@ -440,7 +500,7 @@ tmp <- forest.plot(x=PCs[i], PT.delta = PT.delta[usedinBasis==TRUE], show.class 
 
 
 pie <- data.frame(value=c(481,646,373,3147,365,598), Type=c("IMD","BMK","INF","OTH","PSD","CAN"))
-pie2 <- data.frame(value=c(79,284,16,155,10), Type=c("IMD","BMK","INF","OTH","PSD"))
+pie2 <- data.frame(value=c(79,284,16,155,10,0), Type=c("IMD","BMK","INF","OTH","PSD","CAN"))
 
 plot.pie <- ggplot(pie, aes(x = "", y = value, fill = Type)) +
   geom_col()+
