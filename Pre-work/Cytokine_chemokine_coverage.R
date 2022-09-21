@@ -1,6 +1,6 @@
 ## This script is to compare the coverage of common cytokines/chemokines across 4 papers 
 ## 'Common cytokine/chemokine' is classified accroding to the review book written by Mark J. Cameron and David J. Kelvin: https://www.ncbi.nlm.nih.gov/books/NBK6294/
-## This script outputs 6 summary tables: 4 XXXX_mannual.xlsx, 1 chemokine_summary.xlsx, 1 cytokine_summary.xlsx
+## This script outputs 6 summary tables: 4 XXXX_mannual.xlsx, 1 chemokine_summary.xlsx, 1 cytokine_summary.xlsx; All of them stored under /01_CoverageCompare
 
 library(dplyr)
 library(reshape2)
