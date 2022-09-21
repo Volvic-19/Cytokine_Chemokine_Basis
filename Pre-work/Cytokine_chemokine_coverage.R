@@ -1,6 +1,6 @@
-## This script is to compare the coverage of common cytokine/chemokine across 4 papers 
-## Common cytokine/chemokine is classified accroding to book: https://www.ncbi.nlm.nih.gov/books/NBK6294/
-## It outputs 6 summary tables: 4 XXXX_mannual.xlsx, 1 chemokine_summary.xlsx, 1 cytokine_summary.xlsx
+## This script is to compare the coverage of common cytokines/chemokines across 4 papers 
+## 'Common cytokine/chemokine' is classified accroding to the review book written by Mark J. Cameron and David J. Kelvin: https://www.ncbi.nlm.nih.gov/books/NBK6294/
+## This script outputs 6 summary tables: 4 XXXX_mannual.xlsx, 1 chemokine_summary.xlsx, 1 cytokine_summary.xlsx
 
 library(dplyr)
 library(reshape2)
@@ -17,6 +17,7 @@ chemokine <- read_xlsx("extract_cytokines/common_chemokine.xlsx", sheet = 1)
 cytokine <- cytokine[-which(is.na(cytokine$Uniprot)),]
 chemokine <- chemokine[-which(is.na(chemokine$Uniprot)),]
 
+
 ################################################################
 ############################  Ahola-Olli    ####################
 ################################################################
@@ -30,7 +31,7 @@ Ahola_Olli <- cbind.data.frame(Ahola_Olli[,1:2],
                                Common_Chemokine=NA,
                                Ahola_Olli[,3:27])
 
-#if "Abbreviation" is the same as cytokine/chemokine listed in the book
+#if "Abbreviation" is the same as the name of cytokine/chemokine listed in the book
 
 for (i in 1:nrow(Ahola_Olli)){
     if(Ahola_Olli$Abbreviation[i] %in% cytokine$Name){
@@ -53,7 +54,7 @@ in.brackets <- unname(sapply(Ahola_Olli$Variable[index], function(x){
 Ahola_Olli$Common_Name[index] <- in.brackets 
 Ahola_Olli$Common_Chemokine[index] <- T
 
-#Additional mannually annotate
+#Additional mannual annotation
 Ahola_Olli$Common_Name[8] <- "G-CSF"
 Ahola_Olli$Common_Name[11] <- "IFN-γ"
 Ahola_Olli$Common_Name[13] <- "IL-12"
@@ -143,9 +144,9 @@ cytokine$Ferkingstad[which(cytokine$Name %in% Ferkingstad$Common_Name)] <- T
 chemokine$Ferkingstad[which(chemokine$Name %in% Ferkingstad$Common_Name)] <- T
 
 
-################################################################
+###############################################################
 ############################  Folkersen    ####################
-################################################################
+###############################################################
 
 Folkersen <- read_xlsx("extract_cytokines/Folkersen_traits.xlsx", sheet=1, skip=2)[1:92,]
 
@@ -179,7 +180,7 @@ chemokine$Folkersen[which(chemokine$Name %in% Folkersen$Common_Name)] <- T
 
 
 ################################################################
-############################  Sunnott-Armstrong    ####################
+############################  Sunnott-Armstrong    #############
 ################################################################
 
 
@@ -195,6 +196,7 @@ Sinnot_Armstrong <- cbind.data.frame(Sinnot_Armstrong[, 1],
 # no match was found in Sinnot_Armstrong. Remains NA in cytokine/chemokine summary table.
 
 ##########################################################################
+
 ##output tidied table
 write.xlsx(Ahola_Olli, file = "extract_cytokines/Ahola_olli_mannual.xlsx")
 write.xlsx(Folkersen, file = "extract_cytokines/Folkersen_mannual.xlsx")
