@@ -9,7 +9,7 @@
    * Map the availabe traits from 4 papers with common cytokine/chemokine table based on Uniprot ID. Comparison of coverage rates is summarised in [this google spreadsheet](https://docs.google.com/spreadsheets/d/1lXT4dmS9ogFrl2nv5Qr2KHEoDk5g2vf2kOv9OzG8El4/edit#gid=1947277513)
    * Ferkingstad datasets show the best coverage of cytokine/chemokine: 50 (out of 52) common cytokines, 37 (out of 40) common chemokines, covering all subclasses of cytokines/chemokines listed in the common table. Therefore, in the following part of this project, we chose Ferkingstad GWAS datasets as the input training datasets to construct our genetic basis.
 
-  * Relevant Code: [Cytokine_chemokine_coverage.R](https://github.com/Volvic-19/Cytokine_Chemokine_Basis/blob/main/Pre-work/Cytokine_chemokine_coverage.R)
+  * Relevant Code: [Cytokine_chemokine_coverage.R](https://github.com/Volvic-19/Cytokine_Chemokine_Basis/blob/main/Pre-work/01_CoverageCompare/Cytokine_chemokine_coverage.R)
 
 ## Download desired cytokine/chemokine datasets from Ferkingstad
 
