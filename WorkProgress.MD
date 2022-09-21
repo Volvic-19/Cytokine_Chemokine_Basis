@@ -1,13 +1,13 @@
 
 # 1. Pre-work
 
-## Decide the GWAS summary statistics datasets to use
+## Selection of input GWAS datasets
 
 1. Compare 4 papers (Ferkingstad, Ahola-Olli, Lasse Folkersen, Sinnott-Armstrong) based on their coverage of common cytokines/chemokines.
 
-   * Generate the table of common cytokines/chemokines from the review book by Mark J. Cameron and David J. Kelvin.[<Cytokines, Chemokines and Their Receptors>](https://www.ncbi.nlm.nih.gov/books/NBK6294/)
-   * Map the availabe traits from 4 papers with common cytokine/chemokine table based on Uniprot ID. Comparison of coverage is summarised in [this google spreadsheet](https://docs.google.com/spreadsheets/d/1lXT4dmS9ogFrl2nv5Qr2KHEoDk5g2vf2kOv9OzG8El4/edit#gid=1947277513)
-   * Ferkingstad datasets show the best coverage of cytokine/chemokine: 50 (out of 52) common cytokine, 37 (out of 40) common chemokine, covering all subclasses of cytokines/chemokines listed in the book table.
+   * Generate a table of common cytokines/chemokines from the review book by Mark J. Cameron and David J. Kelvin.[<Cytokines, Chemokines and Their Receptors>](https://www.ncbi.nlm.nih.gov/books/NBK6294/) For the rest of this project, "Common cytokines/chemokines" always refers to cytokines/chemokines that are listed in this table.
+   * Map the availabe traits from 4 papers with common cytokine/chemokine table based on Uniprot ID. Comparison of coverage rates is summarised in [this google spreadsheet](https://docs.google.com/spreadsheets/d/1lXT4dmS9ogFrl2nv5Qr2KHEoDk5g2vf2kOv9OzG8El4/edit#gid=1947277513)
+   * Ferkingstad datasets show the best coverage of cytokine/chemokine: 50 (out of 52) common cytokines, 37 (out of 40) common chemokines, covering all subclasses of cytokines/chemokines listed in the common table. Therefore, in the following part of this project, we chose Ferkingstad GWAS datasets as the input training datasets to construct our genetic basis.
 
   * Relevant Code: [Cytokine_chemokine_coverage.R](https://github.com/Volvic-19/Cytokine_Chemokine_Basis/blob/main/Pre-work/Cytokine_chemokine_coverage.R)
 
