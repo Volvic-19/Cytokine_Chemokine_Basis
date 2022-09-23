@@ -29,7 +29,14 @@
 
 ## Create Manifest and process Ferkingstad datasets
 
-1. Take intersect SNPs of **UKBB Asthma**, **PanUKBB Asthma**, **FinnGen Asthma** and **IL5 (a randomly selected Ferkingstad trait)** to create the initial manifest, add LD block. We align "REF" and "ALT" in our initial manifest with "Reference_1000GP_manifest.tsv.gz". In our initial manifest, there is only one allele in one pid position. But in Reference_1000GP_manifest.tsv.gz, same pid can have different alleles. Be aware of that.
+1. In the first test round of basis construction & projection, we used all 104 traits as input. However this first basis was found to have poor replicability, as the projection results (to be specific, the +/- direction of delta value) are not repeatable when changing source of GWAS data (i.e. Ahola, Folkersen). After looking into the Manhattan plots of traits that show inconsistent projections, we realized that the inconsistency comes from the technical limitations of aptamer-based QTL[see paper](https://www.biorxiv.org/content/10.1101/2022.02.18.481034v1). Therefore, before basis building, we introduced an additional QC: a trait is only taken as input if we can find a cis-QTL peak within the region of 100kb upstream + gene length + 100kb downstream of its genetic loci. After QC, we narrowed the collection of input traits down from 104 to 40.
+    * Input : `Pre-work/Selected_traits/Ferkingstad_basistraits_withduplicates.tsv`; Gene coordinates from BioMart
+    * Relevant Code : [get_Ferkingstad_gene_regions.R](https://github.com/Volvic-19/Cytokine_Chemokine_Basis/blob/main/basis_building/code/get_Ferkingstad_gene_regions.R)
+    * Output : `Pre-work/Selected_traits/Ferkingstad_peaks.tsv` `Pre-work/Selected_traits/Ferkingstad_basistraits_withregions.tsv`
+ 
+ 
+
+2. Take intersect SNPs of **UKBB Asthma**, **PanUKBB Asthma**, **FinnGen Asthma** and **IL5 (a randomly selected Ferkingstad trait)** to create the initial manifest, add LD block. We align "REF" and "ALT" in our initial manifest with "Reference_1000GP_manifest.tsv.gz". In our initial manifest, there is only one allele in one pid position. But in Reference_1000GP_manifest.tsv.gz, same pid can have different alleles. Be aware of that.
     * Input : `11071_1_IL5_IL_5.txt.gz`, `Asthma_PanUKBB_processed-hg38.tsv.gz`, `Asthma_Neale_processed-hg38.tsv.gz`, `Asthma_FinnGen.tsv.gz`,`Reference_1000GP_manifest.tsv.gz`
     * Relevant Code : [adapted-00-create_IL5_consensus_SNP_list.R](https://github.com/Volvic-19/Cytokine_Chemokine_Basis/blob/main/basis_building/code/adapted-00-create_IL5_consensus_SNP_list.R)
     * Output : `basis_building/manifest/IL5_consensus_manifest_8M.tsv`
