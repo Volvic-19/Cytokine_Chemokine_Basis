@@ -47,7 +47,7 @@ write.xlsx(output.basis, "map_dataset_names/Ferkingstad_mapped_basis.xlsx")
 
 
 #############################################################################
-############# Solve duplicate problem in datasets#############################
+############# Solve duplicate problem in datasets############################
 #############################################################################
 
 basis <- read_xlsx ("map_dataset_names/Ferkingstad_mapped_basis.xlsx")[, -1]
