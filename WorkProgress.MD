@@ -20,9 +20,9 @@
 2. Select desired datasets to use
    * Filter datasets for common cytokines/chemokines
    * Remove duplicated datasets (i.e. two or more files sharing the same Uniprot ID): Manhattan plots were made to compare duplicated datasets. We intended to keep only one for each protein trait, but as quality of GWAS stats are close and there is no clear ground to eliminate duplicates, we keep all of them (in total 104 traits) in our current basis.
-   * Copy desired datasets (in total 104 .txt.gz files) and save them under rds/rds-cew54-basis/Projects/Cytokine_Chemokine_Basis/basis_building/raw_fk_data
+   * Copy desired datasets (in total 104 .txt.gz files) and save them under `rds/rds-cew54-basis/Projects/Cytokine_Chemokine_Basis/basis_building/raw_fk_data`
   
-  * Relevant Code: [map_dataset_names.R](https://github.com/Volvic-19/Cytokine_Chemokine_Basis/blob/main/Pre-work/map_dataset_names/map_dataset_names.R)
+  * Relevant Code: [map_dataset_names.R](https://github.com/Volvic-19/Cytokine_Chemokine_Basis/blob/main/Pre-work/02_map_dataset_names/map_dataset_names.R)
  
  
  # 2. Basis-building
